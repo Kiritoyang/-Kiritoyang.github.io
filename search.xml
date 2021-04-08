@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Docker基本概念</title>
+    <url>/2020/05/29/Docker%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<p><strong>Docker基本概念</strong><br>xxxxxxxxxxxxxxxx</p>
+<a id="more"></a>
+<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2><p><img src="/2020/05/29/Docker%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/%E5%9B%BE%E7%89%87%E5%90%8D.png" alt></p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>RabbitMQ</title>
+    <url>/2020/05/28/RabbitMQ/</url>
+    <content><![CDATA[<p><strong>RabbitMQ</strong><br>消息队列 RabbitMQ学习记录</p>
+<a id="more"></a>
+<h1 id="1-为何使用RabbitMQ"><a href="#1-为何使用RabbitMQ" class="headerlink" title="1.为何使用RabbitMQ"></a>1.为何使用RabbitMQ</h1><h4 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h4><h1 id="2-RabbitMQ组件"><a href="#2-RabbitMQ组件" class="headerlink" title="2.RabbitMQ组件"></a>2.RabbitMQ组件</h1><p><img src="/2020/05/28/RabbitMQ/%E7%BB%84%E4%BB%B6.png" alt></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Mybatis-Plus</title>
+    <url>/2020/01/17/Mybatis-Plus/</url>
+    <content><![CDATA[<p><strong>SpringBoot集成Mybatis-Plus</strong><br>demo测试了简单的单表查询的但条件查询，更多的查询参照官方文档，<br><a href="https://mp.baomidou.com/guide/generator.html" target="_blank" rel="noopener" title="Mybatis-Plus官网">https://mp.baomidou.com/guide/generator.html</a></p>
+<hr>
+<a id="more"></a>
+
+<h4 id="1-初始化SpringBoot项目，pom-xml中添加依赖"><a href="#1-初始化SpringBoot项目，pom-xml中添加依赖" class="headerlink" title="1. 初始化SpringBoot项目，pom.xml中添加依赖"></a>1. 初始化SpringBoot项目，pom.xml中添加依赖</h4><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;!--MySQL驱动包--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!--【Druid】阿里数据库连接池--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;druid-spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.1.17&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!--MybatisPlus--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.baomidou&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.2.0&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!--data注解--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-配置application-yml文件-，其中mapper-locations指定了mapper-xml文件所在的位置"><a href="#2-配置application-yml文件-，其中mapper-locations指定了mapper-xml文件所在的位置" class="headerlink" title="2. 配置application.yml文件,，其中mapper-locations指定了mapper.xml文件所在的位置"></a>2. 配置application.yml文件,，其中mapper-locations指定了mapper.xml文件所在的位置</h4><p> ####</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: <span class="number">8081</span></span><br><span class="line">spring:</span><br><span class="line">  thymeleaf:</span><br><span class="line">    cache: false #是否启用缓存，开发环境设false</span><br><span class="line">    mode: HTML</span><br><span class="line">    encoding: UTF-<span class="number">8</span></span><br><span class="line">    prefix: classpath:/templates/ #模板路径</span><br><span class="line">    suffix: .html # 后缀</span><br><span class="line">    servlet:</span><br><span class="line">      content-type: text/html; charset=utf-<span class="number">8</span></span><br><span class="line">  datasource:</span><br><span class="line">    name: datasource</span><br><span class="line">    type: com.alibaba.druid.pool.DruidDataSource</span><br><span class="line">    #druid相关配置</span><br><span class="line">    druid:</span><br><span class="line">      #基本属性</span><br><span class="line">      driver-class-name: com.mysql.cj.jdbc.Driver</span><br><span class="line">      url: jdbc:mysql:<span class="comment">//127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true&amp;serverTimezone=GMT%2B8</span></span><br><span class="line">      username: root</span><br><span class="line">      password: root</span><br><span class="line">       #监控统计拦截的filters</span><br><span class="line">      filters: stat</span><br><span class="line">       #配置初始化大小/最小/最大</span><br><span class="line">      initial-size: <span class="number">1</span></span><br><span class="line">      min-idle: <span class="number">1</span></span><br><span class="line">      max-active: <span class="number">20</span></span><br><span class="line">     #获取连接等待超时时间</span><br><span class="line">      max-wait: <span class="number">60000</span></span><br><span class="line">      #间隔多久进行一次检测，检测需要关闭的空闲连接</span><br><span class="line">      time-between-eviction-runs-millis: <span class="number">60000</span></span><br><span class="line">      #一个连接在池中最小生存的时间</span><br><span class="line">      min-evictable-idle-time-millis: <span class="number">300000</span></span><br><span class="line">      validation-query: SELECT <span class="string">'x'</span></span><br><span class="line">      test-<span class="keyword">while</span>-idle: <span class="keyword">true</span></span><br><span class="line">      test-on-borrow: <span class="keyword">false</span></span><br><span class="line">      test-on-<span class="keyword">return</span>: <span class="keyword">false</span></span><br><span class="line">      #打开PSCache，并指定每个连接上PSCache的大小。</span><br><span class="line">      #oracle设为true，mysql设false。分库分表较多推荐设置为false</span><br><span class="line">      pool-prepared-statements: <span class="keyword">false</span></span><br><span class="line">      max-pool-prepared-statement-per-connection-size: <span class="number">20</span></span><br><span class="line">#mybatis plus 设置</span><br><span class="line">mybatis-plus:</span><br><span class="line">  mapper-locations: classpath*:com.wcy.myweb./mapper/xml<span class="comment">/*Mapper.xml</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  global-config:</span></span><br><span class="line"><span class="comment">    # 关闭MP3.0自带的banner</span></span><br><span class="line"><span class="comment">    banner: false</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-实体类的生成，使用以下SQL代码来逆向生成实体类"><a href="#3-实体类的生成，使用以下SQL代码来逆向生成实体类" class="headerlink" title="3. 实体类的生成，使用以下SQL代码来逆向生成实体类"></a>3. 实体类的生成，使用以下SQL代码来逆向生成实体类</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	COLUMN_NAME,</span><br><span class="line">	DATA_TYPE,</span><br><span class="line">	COLUMN_COMMENT,</span><br><span class="line">	CONCAT( &#39;@TableField(&quot;&#39;, COLUMN_NAME, &#39;&quot;)&#39;,</span><br><span class="line">	&quot;private &quot;, CASE DATA_TYPE WHEN &#39;varchar&#39;</span><br><span class="line">	THEN &quot;String &quot; ELSE &quot;Object &quot; </span><br><span class="line">	END, COLUMN_NAME, &#39;;&#x2F;&#x2F;&#39;,</span><br><span class="line">	COLUMN_COMMENT ) </span><br><span class="line">FROM</span><br><span class="line">	INFORMATION_SCHEMA.COLUMNS </span><br><span class="line">WHERE</span><br><span class="line">	table_name &#x3D; &#39;role&#39; ##表名</span><br><span class="line">	</span><br><span class="line">	AND table_schema &#x3D; &#39;test&#39; ##数据库名</span><br></pre></td></tr></table></figure>
+<h4 id="4-修改对应的表名，数据库名，生成实体类如下："><a href="#4-修改对应的表名，数据库名，生成实体类如下：" class="headerlink" title="4. 修改对应的表名，数据库名，生成实体类如下："></a>4. 修改对应的表名，数据库名，生成实体类如下：</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@TableName</span>(<span class="string">"role"</span>)</span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Role</span> </span>&#123;</span><br><span class="line">    <span class="meta">@TableId</span>(<span class="string">"id"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;<span class="comment">//</span></span><br><span class="line">    <span class="meta">@TableField</span>(<span class="string">"name"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;<span class="comment">//角色名称</span></span><br><span class="line">     <span class="meta">@TableField</span>(<span class="string">"password"</span>)</span><br><span class="line">    <span class="keyword">private</span> String password;<span class="comment">//密码</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/01/17/Mybatis-Plus/sql.png" alt></p>
+<h4 id="5-创建对应的包"><a href="#5-创建对应的包" class="headerlink" title="5. 创建对应的包"></a>5. 创建对应的包</h4><p><img src="/2020/01/17/Mybatis-Plus/%E5%8C%85.png" alt></p>
+<h4 id="6-Service层代码"><a href="#6-Service层代码" class="headerlink" title="6. Service层代码"></a>6. Service层代码</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IRoleService</span> <span class="keyword">extends</span> <span class="title">IService</span>&lt;<span class="title">Role</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function">Role <span class="title">GetRole</span><span class="params">(String RoleName)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="7-Mapper层"><a href="#7-Mapper层" class="headerlink" title="7. Mapper层"></a>7. Mapper层</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RoleMapper</span> <span class="keyword">extends</span> <span class="title">BaseMapper</span>&lt;<span class="title">Role</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若需要写xml就在Mapper包下创建xml包，添加对应的.xml文件</p>
+<p>ServiceImpl实现层</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleServiceImpl</span> <span class="keyword">extends</span> <span class="title">ServiceImpl</span>&lt;<span class="title">RoleMapper</span>, <span class="title">Role</span>&gt; <span class="keyword">implements</span> <span class="title">IRoleService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Role <span class="title">GetRole</span><span class="params">(String RoleName)</span> </span>&#123;</span><br><span class="line">        QueryWrapper&lt;Role&gt; qw = <span class="keyword">new</span> QueryWrapper();</span><br><span class="line">        qw.eq(<span class="string">"name"</span>,RoleName);</span><br><span class="line">        Role one = getOne(qw);</span><br><span class="line">        <span class="keyword">return</span> one;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-Controller层"><a href="#8-Controller层" class="headerlink" title="8. Controller层"></a>8. Controller层</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"test"</span>)</span><br><span class="line"><span class="meta">@Api</span>(tags=<span class="string">"测试"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    IRoleService iRoleService;</span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/getrole"</span>)</span><br><span class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"获取角色信息"</span>, notes = <span class="string">"以n角色名称为参数"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Role <span class="title">getRole</span><span class="params">(@ApiParam(name = <span class="string">"RoleName"</span>, value = <span class="string">"角色名称"</span>)</span> @<span class="title">RequestParam</span><span class="params">(<span class="string">"RoleName"</span>)</span> String RoleName )</span>&#123;</span><br><span class="line">        Role role = iRoleService.GetRole(RoleName);</span><br><span class="line">        <span class="keyword">return</span> role;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-启动类"><a href="#9-启动类" class="headerlink" title="9. 启动类"></a>9. 启动类</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableSwagger</span>2</span><br><span class="line"><span class="meta">@MapperScan</span>(<span class="string">"com.wcy.myweb.mapper"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MywebApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(MywebApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="10-测试结果："><a href="#10-测试结果：" class="headerlink" title="10. 测试结果："></a>10. 测试结果：</h4><p><img src="/2020/01/17/Mybatis-Plus/test.png" alt></p>
+]]></content>
+      <categories>
+        <category>Springboot</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Nginx</title>
+    <url>/2020/01/17/nginx/</url>
+    <content><![CDATA[<h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><hr>
+<p><strong>前言</strong><br>　　为了让我前后端分离的项目实现能运行在手机上，要用到内网穿透，但是ngroc实现内网穿透只能穿透80端口，而我的项目是用了两个不同的端口，我在想能不能只用一个端口就能实现同时运行两个项目，就了解到反向代理。这就要先说一下何为代理，既然有反向代理肯定也有正向代理的。</p>
+<a id="more"></a>
+<p><strong>代理</strong><br>　　Proxy即代理，被广泛应用于计算机领域，主要分为正向代理与反向代理：</p>
+<ul>
+<li><strong>正向代理</strong>：<br>　　正向代理隐藏了真实的请求客户端。服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求，某些科学上网工具扮演的就是典型的正向代理角色。用浏览器访问国外网站是时被墙了，于是你可以在国外搭建一台代理服务器，也就是所谓的梯子，让代理帮我去请求国外的网站，代理把请求返回的相应结构再返回给我。<br>当多个客户端访问服务器时服务器不知道真正访问自己的客户端是那一台。正向代理中,proxy和client同属一个LAN,对server透明，翻墙就用到了正向代理。<strong>「正向代理」代理的对象是客户端</strong></li>
+</ul>
+<p><img src="/2020/01/17/nginx/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86.png" alt></p>
+<ul>
+<li><p><strong>反向代理</strong><br>　　反向代理服务器位于用户与目标服务器之间，但是对于用户而言，反向代理服务器就相当于目标服务器，即用户直接访问反向代理服务器就可以获得目标服务器的资源。同时，用户不需要知道目标服务器的地址，也无须在用户端作任何设定。<strong>「反向代理」代理的对象是服务端</strong></p>
+<ul>
+<li>反向代理服务器作用<br>  1、保护和隐藏原始资源服务器<br>防火墙和反向代理的共同作用保护了原始资源服务器<br>  2、负载均衡<br>当反向代理服务器不止一个的时候，我们甚至可以把它们做成集群，当更多的用户访问资源服务器的时候，让不同的代理服务器去应答不同的用户，然后发送不同用户需要的资源。对于客户端而言它就像是原始服务器，并且客户端不需要进行任何特别的设置。客户端向反向代理的命名空间(name-space)中的内容发送普通请求，接着反向代理将判断向何处(原始服务器)转交请求，并将获得的内容返回给客户端，就像这些内容原本就是它自己的一样。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/01/17/nginx/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86.png" alt></p>
+<h2 id="Nginx具体使用"><a href="#Nginx具体使用" class="headerlink" title="Nginx具体使用"></a>Nginx具体使用</h2><p>1.下载nginx稳定版<a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html </a><br>2.配置nginx.conf<br>最重要的配置就是server</p>
+<ul>
+<li>listen： 这个参数大家应该都不陌生，就是监听的端口号,也就是nginx的端口。</li>
+<li>server_name： 浏览器上输入的域名。</li>
+<li>location： 表示url匹配，/表示全部匹配。</li>
+<li>root： 表示匹配成功之后进入的目录。</li>
+<li>index： 表示默认的页面。</li>
+<li>proxy_pass：表示代理的路径</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ol>
+<li>location区分先后顺序，先写的要写范围小的，如下若是/写在/sysmanger后面，则读取不到sysmanager</li>
+<li>proxy_pass最后加上/则会忽略location上的约束。<br>以下是实现ngrock内网穿透来用外网访问内网，也就是手机上项目的配置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">       listen    80;</span><br><span class="line">       server_name  97cf10fe.ngrok.io;</span><br><span class="line">       charset utf-8;</span><br><span class="line">       #access_log  logs&#x2F;host.access.log  main;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	location &#x2F;sysmanager &#123;</span><br><span class="line">		 proxy_pass http:&#x2F;&#x2F;localhost:8764;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">       location &#x2F; &#123;</span><br><span class="line">          proxy_pass http:&#x2F;&#x2F;localhost:7777;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">	 </span><br><span class="line">       #error_page  404              &#x2F;404.html;</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">       error_page   500 502 503 504  &#x2F;50x.html;</span><br><span class="line">       location &#x3D; &#x2F;50x.html &#123;</span><br><span class="line">           root   html;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="nginx常用命令"><a href="#nginx常用命令" class="headerlink" title="nginx常用命令"></a>nginx常用命令</h2><p>查看版本</p>
+<blockquote>
+<p>nginx -v</p>
+</blockquote>
+<p>测试配置文件是否正确</p>
+<blockquote>
+<p>nginx -t</p>
+</blockquote>
+<p>启动Nginx</p>
+<blockquote>
+<p>nginx</p>
+</blockquote>
+<p>关闭Nginx</p>
+<blockquote>
+<p>nginx -s stop<br>或者<br>nginx -s quit</p>
+</blockquote>
+<p>重启Nginx</p>
+<blockquote>
+<p>nginx -s reload</p>
+</blockquote>
+<p>查看进程</p>
+<blockquote>
+<p>ps -ef|grep nginx</p>
+</blockquote>
+<p>平滑启动</p>
+<blockquote>
+<p>kill -HUP nginx进程号</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>服务器</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>vue条形码生成插</title>
+    <url>/2020/05/12/vue%E6%9D%A1%E5%BD%A2%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92/</url>
+    <content><![CDATA[<p><strong>vue插件动态生成条形码</strong></p>
+<a id="more"></a>
+<h1 id="1-安装组件"><a href="#1-安装组件" class="headerlink" title="1.安装组件"></a>1.安装组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install @xkeshi&#x2F;vue-barcode vue</span><br></pre></td></tr></table></figure>
+<h1 id="2-main-js中引入注册组件"><a href="#2-main-js中引入注册组件" class="headerlink" title="2.main.js中引入注册组件"></a>2.main.js中引入注册组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;条形码</span><br><span class="line">import VueBarcode from &#39;@xkeshi&#x2F;vue-barcode&#39;;</span><br><span class="line">Vue.component(&#39;barcode&#39;, VueBarcode);</span><br></pre></td></tr></table></figure>
+<h1 id="3-使用组件"><a href="#3-使用组件" class="headerlink" title="3.使用组件"></a>3.使用组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;barcode</span><br><span class="line">	:value&#x3D;&quot;list.examineNumber&quot;</span><br><span class="line">	:options&#x3D;&quot;&#123; height:&#39;100px&#39;,</span><br><span class="line">	width:&#39;3px&#39;,</span><br><span class="line">	fontSize: &#39;30px&#39;,</span><br><span class="line">	background:&#39;transparent&#39;&#125;&quot;&gt;</span><br><span class="line">&lt;&#x2F;barcode&gt;</span><br></pre></td></tr></table></figure>
+<p>#4.效果</p>
+<p> <img src="/2020/05/12/vue%E6%9D%A1%E5%BD%A2%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92/%E6%9D%A1%E5%BD%A2%E7%A0%81.png" alt></p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Ngroc</title>
+    <url>/2020/01/17/ngrok/</url>
+    <content><![CDATA[<h1 id="Ngrok实现内网穿透"><a href="#Ngrok实现内网穿透" class="headerlink" title="Ngrok实现内网穿透"></a>Ngrok实现内网穿透</h1><hr>
+<p><strong>前言</strong>：一直在开发Web项目，但都是在本地运行能跑起来,一直都想把运行的项目能够在手机上能看见（不是一个局域网中也能看见），因为我只是想来做个测试，不想购买服务器和域名，也不想配置，如果我的电脑能作为服务端，有开发环境，又有tomcat，数据库等等，如果能够直接将开发用的电脑的这个内网的IP映射到公网多好啊。于是就了解到了要用到内网穿透，内网穿透就会用到Ngrok,而且是免费的。</p>
+<a id="more"></a>
+<ul>
+<li><strong>内网穿透</strong><br>　　内网穿透其作用，简而言之就是将内网IP映射成对外可访问的域名。（这里要是不知道为什么需要暴露在公网上，就需要复习一下网络方面的知识了，例如网络七层协议。还有IP和域名这些网络方面的知识。这个说来就话长了）Ngrok可以理解为内网穿透工具。</li>
+</ul>
+<h2 id="Ngroc具体使用流程"><a href="#Ngroc具体使用流程" class="headerlink" title="Ngroc具体使用流程"></a>Ngroc具体使用流程</h2><p>1.因为开发环境是windows操作系统,安装windows版本的ngroc，从官网<a href="https://ngrok.com/" target="_blank" rel="noopener" title="ngrok官网">https://ngrok.com/  </a>  下载，注册并获取密钥</p>
+<p><img src="/2020/01/17/ngrok/%E5%AF%86%E9%92%A5.png" alt></p>
+<p>2.在ngrok.exe根目录打开cmd执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok authtoken 授权码</span><br></pre></td></tr></table></figure>
+<p>授权码和账户是绑定的，在授权命令运行后，ngrok会将授权码保存在~/.ngrok2/ngrok.yml中，所以只需要运行一次，以后都可以使用。<br>3.执行以下代码来选择你要暴露的端口</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok http 80</span><br></pre></td></tr></table></figure>
+<p><img src="ngrok/http.png" alt><br>4.每次启动ngrok都会分配一个新的外网域名，所以需要每次更换配置或者更换访问地址，不太方便。当然，ngrok也提供了解决方法，那就是付费，可以设置固定域名。</p>
+]]></content>
+      <categories>
+        <category>服务器</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>vue带参数路由跳转</title>
+    <url>/2020/04/21/vue%E5%B8%A6%E5%8F%82%E6%95%B0%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC/</url>
+    <content><![CDATA[<p><strong>vue带参数路由跳转</strong></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">async getDeptById(e) &#123;</span><br><span class="line">           console.log(e)</span><br><span class="line">           try &#123;</span><br><span class="line">               let returnData &#x3D; await this.$net.post(&#123;</span><br><span class="line">                   url: this.$url.hosApi.getDeptById,</span><br><span class="line">                   data: &#123;id:e&#125;</span><br><span class="line">               &#125;);</span><br><span class="line">               if (returnData.code &#x3D;&#x3D; 200) &#123;</span><br><span class="line">                   this.$router.push(&#123;</span><br><span class="line">                   name: &#39;HosDepartmentDetail&#39;,</span><br><span class="line">                   params: returnData.data </span><br><span class="line">               &#125;)   </span><br><span class="line">               &#125;</span><br><span class="line">           &#125; catch (e) &#123;</span><br><span class="line">               </span><br><span class="line">           &#125;</span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>swagger</title>
+    <url>/2020/01/17/swagger/</url>
+    <content><![CDATA[<p><strong>Swagger</strong><br>Springboot集成swagger</p>
+<hr>
+<a id="more"></a>
+<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;io.springfox&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;2.9.2&lt;/version&gt;</span><br><span class="line">     &lt;/dependency&gt;</span><br><span class="line">     &lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;io.springfox&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;2.9.2&lt;/version&gt;</span><br><span class="line">     &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!--美化swagger--&gt;</span><br><span class="line">     &lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;com.github.xiaoymin&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;swagger-bootstrap-ui&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;1.9.3&lt;/version&gt;</span><br><span class="line">     &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-创建SwaggerConfig"><a href="#2-创建SwaggerConfig" class="headerlink" title="2.创建SwaggerConfig"></a>2.创建SwaggerConfig</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableSwagger</span>2</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Docket <span class="title">createRestApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">                .groupName(<span class="string">"demo"</span>)</span><br><span class="line">                .apiInfo(apiInfo())</span><br><span class="line">                .select()</span><br><span class="line">                <span class="comment">// 设置basePackage会将包下的所有类的所有方法作为api</span></span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage(<span class="string">"com.wcy.myweb.Controller"</span>))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ApiInfo <span class="title">apiInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ApiInfoBuilder()</span><br><span class="line">                .title(<span class="string">"微信端后台对外API接口列表"</span>)</span><br><span class="line">                .description(<span class="string">"YXClouud-WeChat"</span>)</span><br><span class="line">                .version(<span class="string">"1.0"</span>)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Api注解"><a href="#3-Api注解" class="headerlink" title="3.Api注解"></a>3.Api注解</h2><ul>
+<li>@Api()<br>用于类；表示标识这个类是swagger的资源<br>tags–表示说明<br>value–也是说明，可以使用tags替代 </li>
+<li>@ApiOperation() 用于方法；表示一个http请求的操作<br>value用于方法描述<br>notes用于提示内容<br>tags可以重新分组（视情况而用）</li>
+<li>@ApiParam() 用于方法，参数，字段说明；表示对参数的添加元数据（说明或是否必填等）<br>name–参数名<br>value–参数说明<br>required–是否必填</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"test"</span>)</span><br><span class="line"><span class="meta">@Api</span>(tags=<span class="string">"测试"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    IRoleService iRoleService;</span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/getrole"</span>)</span><br><span class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"获取角色信息"</span>, notes = <span class="string">"以n角色名称为参数"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Role <span class="title">getRole</span><span class="params">(@ApiParam(name = <span class="string">"RoleName"</span>, value = <span class="string">"角色名称"</span>)</span> String RoleName )</span>&#123;</span><br><span class="line">        Role role = iRoleService.GetRole(RoleName);</span><br><span class="line">        <span class="keyword">return</span> role;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-效果"><a href="#4-效果" class="headerlink" title="4.效果"></a>4.效果</h2><ul>
+<li>swagger-ui的效果<br>输入:<code>http://localhost:配置的端口号/swagger-ui.html</code><br><img src="/2020/01/17/swagger/swagger1.png" alt><ul>
+<li>swagger-bootstrap-ui效果<br>输入：<code>http://localhost:自己的端口/doc.html</code><br><img src="/2020/01/17/swagger/swagger2.png" alt></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>redis</title>
+    <url>/2020/01/17/redis/</url>
+    <content><![CDATA[<p> <strong>Redis的安装</strong> </p>
+<hr>
+<a id="more"></a>
+<h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h4><blockquote>
+<p>wget -P /root/softdev <a href="http://download.redis.io/releases/redis-5.0.5.tar.gz" target="_blank" rel="noopener">http://download.redis.io/releases/redis-5.0.5.tar.gz</a></p>
+</blockquote>
+<h4 id="2-解压"><a href="#2-解压" class="headerlink" title="2.解压"></a>2.解压</h4><blockquote>
+<p>tar zxvf redis-5.0.5.tar.gz -C /root/redis</p>
+</blockquote>
+<h4 id="3-安装C语言环境"><a href="#3-安装C语言环境" class="headerlink" title="3.安装C语言环境"></a>3.安装C语言环境</h4><blockquote>
+<p>yum install gcc-c++</p>
+</blockquote>
+<h4 id="4-切换到redis安装目录下-执行"><a href="#4-切换到redis安装目录下-执行" class="headerlink" title="4.切换到redis安装目录下.执行"></a>4.切换到redis安装目录下.执行</h4><blockquote>
+<p>make</p>
+</blockquote>
+<p><img src="/2020/01/17/redis/1.png" alt></p>
+<h4 id="5-修改配置文件redis-conf"><a href="#5-修改配置文件redis-conf" class="headerlink" title="5.修改配置文件redis.conf"></a>5.修改配置文件redis.conf</h4><ul>
+<li>将daemonize后面的no改为yes,意为后台运行的意思</li>
+</ul>
+<p><img src="/2020/01/17/redis/2.png" alt></p>
+<ul>
+<li>将requirepass前面的#号去掉,开启密码验证,然后后面是我设置的密码</li>
+</ul>
+<p><img src="/2020/01/17/redis/3.png" alt>　</p>
+<ul>
+<li>允许其他ip地址访问</li>
+</ul>
+<p><img src="/2020/01/17/redis/4.png" alt></p>
+<h4 id="6-redis命令"><a href="#6-redis命令" class="headerlink" title="6.redis命令"></a>6.redis命令</h4><ul>
+<li>启动：</li>
+</ul>
+<blockquote>
+<p>src/redis-server redis.conf</p>
+</blockquote>
+<ul>
+<li>查看进程</li>
+</ul>
+<blockquote>
+<p>ps aux |grep redis</p>
+</blockquote>
+<p> <img src="/2020/01/17/redis/5.png" alt></p>
+<ul>
+<li>关闭redis</li>
+</ul>
+<blockquote>
+<p> kill -9 redis端口号</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>前后端分离集成kaptcha</title>
+    <url>/2020/04/26/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%9B%86%E6%88%90kaptcha/</url>
+    <content><![CDATA[<p><strong>kaptcha</strong><br>Springboot集成kaptcha，前端Vue项目，实现验证码验证功能。</p>
+<a id="more"></a>
+<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;!-- 验证码--&gt;</span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;com.github.penggle&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;kaptcha&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="2-添加配置类"><a href="#2-添加配置类" class="headerlink" title="2.添加配置类"></a>2.添加配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KaptchaConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DefaultKaptcha <span class="title">producer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        properties.put(<span class="string">"kaptcha.border"</span>, <span class="string">"no"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.font.color"</span>, <span class="string">"black"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.char.space"</span>, <span class="string">"10"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.char.length"</span>,<span class="string">"4"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.image.height"</span>,<span class="string">"34"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.font.size"</span>,<span class="string">"25"</span>);</span><br><span class="line"></span><br><span class="line">        properties.put(<span class="string">"kaptcha.noise.impl"</span>,<span class="string">"com.google.code.kaptcha.impl.NoNoise"</span>);</span><br><span class="line">        Config config = <span class="keyword">new</span> Config(properties);</span><br><span class="line">        DefaultKaptcha defaultKaptcha = <span class="keyword">new</span> DefaultKaptcha();</span><br><span class="line">        defaultKaptcha.setConfig(config);</span><br><span class="line">        <span class="keyword">return</span> defaultKaptcha;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-验证码生成接口"><a href="#3-验证码生成接口" class="headerlink" title="3.验证码生成接口"></a>3.验证码生成接口</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line">   <span class="keyword">private</span> DefaultKaptcha producer;</span><br><span class="line">   <span class="meta">@PostMapping</span>(<span class="string">"/captcha"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> Result <span class="title">captcha</span><span class="params">()</span><span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * 后端生成图片 验证码字符串 uuid</span></span><br><span class="line"><span class="comment">        * uuid为key  验证码字符串为value</span></span><br><span class="line"><span class="comment">        * 传递bs64图片 和uuid给前端</span></span><br><span class="line"><span class="comment">        * 前端在登录的时候 传递 账号 密码 验证码 uuid</span></span><br><span class="line"><span class="comment">        * 通过uuid获取 验证码 验证</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">       ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">       <span class="comment">//获取验证码</span></span><br><span class="line">       String text = producer.createText();</span><br><span class="line">       System.out.println(<span class="string">"登录验证码："</span>+text);</span><br><span class="line"></span><br><span class="line">       BufferedImage image = producer.createImage(text);</span><br><span class="line">       ImageIO.write(image, <span class="string">"png"</span>, out);</span><br><span class="line">       String base64bytes = Base64.encode(out.toByteArray());</span><br><span class="line"></span><br><span class="line">       <span class="comment">//该字符串传输至前端放入src即可显示图片，安卓可以去掉data:image/png;base64,</span></span><br><span class="line">       String src = <span class="string">"data:image/png;base64,"</span> + base64bytes;</span><br><span class="line">       System.out.println(<span class="string">"登录验证码："</span>+src);</span><br><span class="line">       String token = UUID.randomUUID().toString().replace(<span class="string">"-"</span>,<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">       System.out.println(<span class="string">"token:"</span>+token);</span><br><span class="line">       Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">       map.put(<span class="string">"token"</span>, token);</span><br><span class="line">       map.put(<span class="string">"img"</span>, src);</span><br><span class="line">       <span class="comment">//stringRedisTemplate.opsForValue().set(token, texttext);</span></span><br><span class="line">       redis.put(token,text);</span><br><span class="line">       <span class="keyword">return</span> Result.success(map);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-登录接口"><a href="#4-登录接口" class="headerlink" title="4.登录接口"></a>4.登录接口</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,String&gt; redis = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">userLogin</span><span class="params">(@RequestBody Map map)</span></span>&#123;</span><br><span class="line">        <span class="comment">//后台验证码</span></span><br><span class="line">       <span class="comment">// String text = String.valueOf(map.get("text"));</span></span><br><span class="line">        String text = redis.get(String.valueOf(map.get(<span class="string">"token"</span>)));</span><br><span class="line">        <span class="comment">//输入的验证码</span></span><br><span class="line">        String yzm = String.valueOf(map.get(<span class="string">"yzm"</span>));</span><br><span class="line">        <span class="keyword">if</span>(yzm.equals(text))&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-前端页面"><a href="#5-前端页面" class="headerlink" title="5.前端页面"></a>5.前端页面</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;!--图片显示--&gt;</span><br><span class="line">&lt;img :src&#x3D;&quot;this.token1.img&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">mounted()&#123;</span><br><span class="line">        this.getToken();</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">			&#x2F;&#x2F;获取验证信息</span><br><span class="line">            async getToken() &#123;</span><br><span class="line">                    let getData &#x3D; await this.$net.Post(&#123;</span><br><span class="line">                        url: config.getToken,</span><br><span class="line">                        </span><br><span class="line">                    &#125;);</span><br><span class="line">                    if (getData.code &#x3D;&#x3D; 200) &#123;</span><br><span class="line">                       this.token1 &#x3D; getData.data</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="5-显示效果"><a href="#5-显示效果" class="headerlink" title="5.显示效果"></a>5.显示效果</h2><p><img src="/2020/04/26/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%9B%86%E6%88%90kaptcha/%E9%AA%8C%E8%AF%81%E7%A0%81.png" alt></p>
+]]></content>
+      <categories>
+        <category>Springboot</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>微信模板消息接口</title>
+    <url>/2020/05/25/%E5%BE%AE%E4%BF%A1%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3/</url>
+    <content><![CDATA[<p><strong>微信模板消息接口</strong><br>调用微信模板消息接口</p>
+<a id="more"></a>
+<h1 id="1-请求接口所需要的的数据"><a href="#1-请求接口所需要的的数据" class="headerlink" title="1.请求接口所需要的的数据"></a>1.请求接口所需要的的数据</h1><p>由微信开发文档中POST请求所需要的数据可知，调用接口需要ACCESS_TOKEN和以下Json格式的数据。</p>
+<p><img src="/2020/05/25/%E5%BE%AE%E4%BF%A1%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3/%E5%BE%AE%E4%BF%A1%E6%8E%A5%E5%8F%A3.png" alt></p>
+<h1 id="2-创建接口所需要的的数据的实体类"><a href="#2-创建接口所需要的的数据的实体类" class="headerlink" title="2.创建接口所需要的的数据的实体类"></a>2.创建接口所需要的的数据的实体类</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WechatTemplateReq</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String touser;</span><br><span class="line">    <span class="keyword">private</span> String template_id;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String,Template&gt; data;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">WechatTemplateReq</span><span class="params">(String touser, String template_id, Map  map)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.touser = touser;</span><br><span class="line">        <span class="keyword">this</span>.template_id = template_id ;</span><br><span class="line">        <span class="keyword">this</span>.data = map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Template</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String value;</span><br><span class="line">    <span class="keyword">private</span>  String color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-http请求工具类"><a href="#3-http请求工具类" class="headerlink" title="3.http请求工具类"></a>3.http请求工具类</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WechatHttpUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理http请求 toUserAccessToken为请求地址  requestMethod请求方式，值为"GET"或"POST"</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">httpRequest</span><span class="params">(String toUserAccessToken,String requestMethod,String outputStr)</span></span>&#123;</span><br><span class="line">        StringBuffer buffer=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            URL url=<span class="keyword">new</span> URL(<span class="string">"https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="</span>+toUserAccessToken);</span><br><span class="line">            HttpURLConnection conn=(HttpURLConnection)url.openConnection();</span><br><span class="line">            conn.setDoOutput(<span class="keyword">true</span>);</span><br><span class="line">            conn.setDoInput(<span class="keyword">true</span>);</span><br><span class="line">            conn.setRequestMethod(requestMethod);</span><br><span class="line">            conn.connect();</span><br><span class="line">            <span class="comment">//往服务器端写内容 也就是发起http请求需要带的参数</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">null</span>!=outputStr)&#123;</span><br><span class="line">                OutputStream os=conn.getOutputStream();</span><br><span class="line">                os.write(outputStr.getBytes(<span class="string">"utf-8"</span>));</span><br><span class="line">                os.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//读取服务器端返回的内容</span></span><br><span class="line">            InputStream is=conn.getInputStream();</span><br><span class="line">            InputStreamReader isr=<span class="keyword">new</span> InputStreamReader(is,<span class="string">"utf-8"</span>);</span><br><span class="line">            BufferedReader br=<span class="keyword">new</span> BufferedReader(isr);</span><br><span class="line">            buffer=<span class="keyword">new</span> StringBuffer();</span><br><span class="line">            String line=<span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">while</span>((line=br.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                buffer.append(line);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> buffer.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-将模板ID-参数，写入数据库，可根据ID来对数据进行管理"><a href="#4-将模板ID-参数，写入数据库，可根据ID来对数据进行管理" class="headerlink" title="4.将模板ID,参数，写入数据库，可根据ID来对数据进行管理"></a>4.将模板ID,参数，写入数据库，可根据ID来对数据进行管理</h1><p><img src="/2020/05/25/%E5%BE%AE%E4%BF%A1%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3/%E6%95%B0%E6%8D%AE%E5%BA%93.png" alt><br>创建相应entity</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@TableName</span>( <span class="string">"wechat_template"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WechatTemplate</span> </span>&#123;</span><br><span class="line">    <span class="meta">@TableId</span>(<span class="string">"id"</span>)</span><br><span class="line">    String id ;</span><br><span class="line">    <span class="meta">@TableField</span>(<span class="string">"template_id"</span>)</span><br><span class="line">    String templateId;</span><br><span class="line">    <span class="meta">@TableField</span>(<span class="string">"message"</span>)</span><br><span class="line">    String message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="5-编写方法根据传入的MAP和数据库中的信息比对，封装成微信所需要的JSON数据格式"><a href="#5-编写方法根据传入的MAP和数据库中的信息比对，封装成微信所需要的JSON数据格式" class="headerlink" title="5.编写方法根据传入的MAP和数据库中的信息比对，封装成微信所需要的JSON数据格式"></a>5.编写方法根据传入的MAP和数据库中的信息比对，封装成微信所需要的JSON数据格式</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span>  String <span class="title">getTemplateReq</span><span class="params">(String touser, String TemplateId, Map&lt;String, String&gt; params)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Map&lt;String, Template&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="comment">//根据传入的模板ID 数据库中去查询对应的模板信息</span></span><br><span class="line">    WechatTemplate wechatTemplate = wechatTemplateMapper.selectById(TemplateId);</span><br><span class="line">    String message = wechatTemplate.getMessage();</span><br><span class="line">    String[] messages = message.split(<span class="string">"\\|"</span>);</span><br><span class="line">    <span class="comment">//封装数据为微信模板借口所需要的的数据</span></span><br><span class="line">    <span class="keyword">for</span> (String m : messages) &#123;</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : params.entrySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (m.equals(entry.getKey())) &#123;</span><br><span class="line">                Template x = <span class="keyword">new</span> Template();</span><br><span class="line">                x.setColor(<span class="string">"#173177"</span>);</span><br><span class="line">                x.setValue(entry.getValue());</span><br><span class="line">                map.put(m, x);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生成微信需要的对象</span></span><br><span class="line">    WechatTemplateReq w = <span class="keyword">new</span> WechatTemplateReq(touser,wechatTemplate.getTemplateId(), map);</span><br><span class="line">    <span class="comment">//转化为json格式</span></span><br><span class="line">    String jsonString = JSONObject.toJSONString(w);</span><br><span class="line">    <span class="comment">//调用http请求 模板</span></span><br><span class="line">    String msg = WechatHttpUtils.httpRequest(WeChatAccessCache.ACCESS_TOKEN.get(<span class="string">"1"</span>), <span class="string">"POST"</span>, jsonString);</span><br><span class="line">    <span class="keyword">return</span> msg;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="6-接口模拟发起请求"><a href="#6-接口模拟发起请求" class="headerlink" title="6.接口模拟发起请求"></a>6.接口模拟发起请求</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestTemplateController</span> <span class="keyword">extends</span> <span class="title">SBaseController</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/getTemplate"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; params = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        params.put(<span class="string">"first"</span>, <span class="string">"小次郎"</span>);</span><br><span class="line">        params.put(<span class="string">"keyword1"</span>, <span class="string">"狼哥"</span>);</span><br><span class="line">        params.put(<span class="string">"keyword2"</span>, <span class="string">"铜锣湾"</span>);</span><br><span class="line">        params.put(<span class="string">"keyword3"</span>, <span class="string">"2000-13-32"</span>);</span><br><span class="line">        params.put(<span class="string">"keyword4"</span>, <span class="string">"泰达米尔"</span>);</span><br><span class="line">        params.put(<span class="string">"remark"</span>, <span class="string">"QAQ XD"</span>);</span><br><span class="line">        <span class="comment">//传给微信的JSON数据</span></span><br><span class="line">       getTemplateReq(<span class="string">"oq5qetwujssIF41MYQfDbTN7Tm7c"</span>, <span class="string">"3"</span>, params);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="7-调用接口，发起请求的同时调用http发起微信模板消息"><a href="#7-调用接口，发起请求的同时调用http发起微信模板消息" class="headerlink" title="7.调用接口，发起请求的同时调用http发起微信模板消息"></a>7.调用接口，发起请求的同时调用http发起微信模板消息</h1><p><img src="/2020/05/25/%E5%BE%AE%E4%BF%A1%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3/test.jpg" alt></p>
+]]></content>
+      <categories>
+        <category>微信</category>
+      </categories>
+  </entry>
+</search>
