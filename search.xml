@@ -43,12 +43,25 @@
       </categories>
   </entry>
   <entry>
-    <title>RabbitMQ</title>
-    <url>/2020/05/28/RabbitMQ/</url>
-    <content><![CDATA[<p><strong>RabbitMQ</strong><br>消息队列 RabbitMQ学习记录</p>
+    <title>Ngroc</title>
+    <url>/2020/01/17/ngrok/</url>
+    <content><![CDATA[<h1 id="Ngrok实现内网穿透"><a href="#Ngrok实现内网穿透" class="headerlink" title="Ngrok实现内网穿透"></a>Ngrok实现内网穿透</h1><hr>
+<p><strong>前言</strong>：一直在开发Web项目，但都是在本地运行能跑起来,一直都想把运行的项目能够在手机上能看见（不是一个局域网中也能看见），因为我只是想来做个测试，不想购买服务器和域名，也不想配置，如果我的电脑能作为服务端，有开发环境，又有tomcat，数据库等等，如果能够直接将开发用的电脑的这个内网的IP映射到公网多好啊。于是就了解到了要用到内网穿透，内网穿透就会用到Ngrok,而且是免费的。</p>
 <a id="more"></a>
-<h1 id="1-为何使用RabbitMQ"><a href="#1-为何使用RabbitMQ" class="headerlink" title="1.为何使用RabbitMQ"></a>1.为何使用RabbitMQ</h1><h4 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h4><h1 id="2-RabbitMQ组件"><a href="#2-RabbitMQ组件" class="headerlink" title="2.RabbitMQ组件"></a>2.RabbitMQ组件</h1><p><img src="/2020/05/28/RabbitMQ/%E7%BB%84%E4%BB%B6.png" alt></p>
+<ul>
+<li><strong>内网穿透</strong><br>　　内网穿透其作用，简而言之就是将内网IP映射成对外可访问的域名。（这里要是不知道为什么需要暴露在公网上，就需要复习一下网络方面的知识了，例如网络七层协议。还有IP和域名这些网络方面的知识。这个说来就话长了）Ngrok可以理解为内网穿透工具。</li>
+</ul>
+<h2 id="Ngroc具体使用流程"><a href="#Ngroc具体使用流程" class="headerlink" title="Ngroc具体使用流程"></a>Ngroc具体使用流程</h2><p>1.因为开发环境是windows操作系统,安装windows版本的ngroc，从官网<a href="https://ngrok.com/" target="_blank" rel="noopener" title="ngrok官网">https://ngrok.com/  </a>  下载，注册并获取密钥</p>
+<p><img src="/2020/01/17/ngrok/%E5%AF%86%E9%92%A5.png" alt></p>
+<p>2.在ngrok.exe根目录打开cmd执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok authtoken 授权码</span><br></pre></td></tr></table></figure>
+<p>授权码和账户是绑定的，在授权命令运行后，ngrok会将授权码保存在~/.ngrok2/ngrok.yml中，所以只需要运行一次，以后都可以使用。<br>3.执行以下代码来选择你要暴露的端口</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok http 80</span><br></pre></td></tr></table></figure>
+<p><img src="ngrok/http.png" alt><br>4.每次启动ngrok都会分配一个新的外网域名，所以需要每次更换配置或者更换访问地址，不太方便。当然，ngrok也提供了解决方法，那就是付费，可以设置固定域名。</p>
 ]]></content>
+      <categories>
+        <category>服务器</category>
+      </categories>
   </entry>
   <entry>
     <title>Nginx</title>
@@ -118,27 +131,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Ngroc</title>
-    <url>/2020/01/17/ngrok/</url>
-    <content><![CDATA[<h1 id="Ngrok实现内网穿透"><a href="#Ngrok实现内网穿透" class="headerlink" title="Ngrok实现内网穿透"></a>Ngrok实现内网穿透</h1><hr>
-<p><strong>前言</strong>：一直在开发Web项目，但都是在本地运行能跑起来,一直都想把运行的项目能够在手机上能看见（不是一个局域网中也能看见），因为我只是想来做个测试，不想购买服务器和域名，也不想配置，如果我的电脑能作为服务端，有开发环境，又有tomcat，数据库等等，如果能够直接将开发用的电脑的这个内网的IP映射到公网多好啊。于是就了解到了要用到内网穿透，内网穿透就会用到Ngrok,而且是免费的。</p>
-<a id="more"></a>
-<ul>
-<li><strong>内网穿透</strong><br>　　内网穿透其作用，简而言之就是将内网IP映射成对外可访问的域名。（这里要是不知道为什么需要暴露在公网上，就需要复习一下网络方面的知识了，例如网络七层协议。还有IP和域名这些网络方面的知识。这个说来就话长了）Ngrok可以理解为内网穿透工具。</li>
-</ul>
-<h2 id="Ngroc具体使用流程"><a href="#Ngroc具体使用流程" class="headerlink" title="Ngroc具体使用流程"></a>Ngroc具体使用流程</h2><p>1.因为开发环境是windows操作系统,安装windows版本的ngroc，从官网<a href="https://ngrok.com/" target="_blank" rel="noopener" title="ngrok官网">https://ngrok.com/  </a>  下载，注册并获取密钥</p>
-<p><img src="/2020/01/17/ngrok/%E5%AF%86%E9%92%A5.png" alt></p>
-<p>2.在ngrok.exe根目录打开cmd执行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok authtoken 授权码</span><br></pre></td></tr></table></figure>
-<p>授权码和账户是绑定的，在授权命令运行后，ngrok会将授权码保存在~/.ngrok2/ngrok.yml中，所以只需要运行一次，以后都可以使用。<br>3.执行以下代码来选择你要暴露的端口</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok http 80</span><br></pre></td></tr></table></figure>
-<p><img src="ngrok/http.png" alt><br>4.每次启动ngrok都会分配一个新的外网域名，所以需要每次更换配置或者更换访问地址，不太方便。当然，ngrok也提供了解决方法，那就是付费，可以设置固定域名。</p>
-]]></content>
-      <categories>
-        <category>服务器</category>
-      </categories>
-  </entry>
-  <entry>
     <title>redis</title>
     <url>/2020/01/17/redis/</url>
     <content><![CDATA[<p> <strong>Redis的安装</strong> </p>
@@ -192,6 +184,14 @@
       <categories>
         <category>数据库</category>
       </categories>
+  </entry>
+  <entry>
+    <title>RabbitMQ</title>
+    <url>/2020/05/28/RabbitMQ/</url>
+    <content><![CDATA[<p><strong>RabbitMQ</strong><br>消息队列 RabbitMQ学习记录</p>
+<a id="more"></a>
+<h1 id="1-为何使用RabbitMQ"><a href="#1-为何使用RabbitMQ" class="headerlink" title="1.为何使用RabbitMQ"></a>1.为何使用RabbitMQ</h1><h4 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h4><h1 id="2-RabbitMQ组件"><a href="#2-RabbitMQ组件" class="headerlink" title="2.RabbitMQ组件"></a>2.RabbitMQ组件</h1><p><img src="/2020/05/28/RabbitMQ/%E7%BB%84%E4%BB%B6.png" alt></p>
+]]></content>
   </entry>
   <entry>
     <title>swagger</title>
@@ -305,12 +305,12 @@
 <p>mysql 调取与结果</p>
 </blockquote>
 <p><img src="/2021/01/18/%E8%A7%A3%E6%9E%90word%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E8%A1%A8%E6%A0%BC%EF%BC%8C%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90sql%E8%AF%AD%E5%8F%A5/sqlserver3.png" alt></p>
-<p><img src="/2021/01/18/%E8%A7%A3%E6%9E%90word%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E8%A1%A8%E6%A0%BC%EF%BC%8C%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90sql%E8%AF%AD%E5%8F%A5/mysql%E5%BB%BA%E8%A1%A83.png" alt="mysql建表3"></p>
+<p><img src="/2021/01/18/%E8%A7%A3%E6%9E%90word%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E8%A1%A8%E6%A0%BC%EF%BC%8C%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90sql%E8%AF%AD%E5%8F%A5/mysql%E5%BB%BA%E8%A1%A83.png" alt></p>
 <blockquote>
 <p>sqlserver调取与结果</p>
 </blockquote>
 <p><img src="/2021/01/18/%E8%A7%A3%E6%9E%90word%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E8%A1%A8%E6%A0%BC%EF%BC%8C%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90sql%E8%AF%AD%E5%8F%A5/sqlserver1.png" alt></p>
-<p><img src="/2021/01/18/%E8%A7%A3%E6%9E%90word%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E8%A1%A8%E6%A0%BC%EF%BC%8C%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90sql%E8%AF%AD%E5%8F%A5/sqlserver2.png" alt="sqlserver2"></p>
+<p><img src="/2021/01/18/%E8%A7%A3%E6%9E%90word%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E8%A1%A8%E6%A0%BC%EF%BC%8C%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90sql%E8%AF%AD%E5%8F%A5/sqlserver2.png" alt></p>
 <p>还是有一些不完善的地方，请指教otz</p>
 ]]></content>
       <categories>
