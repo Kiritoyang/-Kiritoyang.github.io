@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Docker基本概念</title>
-    <url>/2020/05/29/Docker%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
-    <content><![CDATA[<p><strong>Docker基本概念</strong><br>xxxxxxxxxxxxxxxx</p>
-<a id="more"></a>
-<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2><p><img src="/2020/05/29/Docker%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/%E5%9B%BE%E7%89%87%E5%90%8D.png" alt></p>
-]]></content>
-      <categories>
-        <category>Docker</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Mybatis-Plus</title>
     <url>/2021/06/30/Mybatis-Plus/</url>
     <content><![CDATA[<p><strong>SpringBoot集成Mybatis-Plus</strong><br>demo测试了简单的单表查询的但条件查询，更多的查询参照官方文档，<br><a href="https://mp.baomidou.com/guide/generator.html" target="_blank" rel="noopener" title="Mybatis-Plus官网">https://mp.baomidou.com/guide/generator.html</a></p>
@@ -41,6 +30,108 @@
       <categories>
         <category>Springboot</category>
       </categories>
+  </entry>
+  <entry>
+    <title>Docker基本概念</title>
+    <url>/2020/05/29/Docker%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<p><strong>Docker基本概念</strong><br>xxxxxxxxxxxxxxxx</p>
+<a id="more"></a>
+<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2><p><img src="/2020/05/29/Docker%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/%E5%9B%BE%E7%89%87%E5%90%8D.png" alt></p>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>RabbitMQ</title>
+    <url>/2020/05/28/RabbitMQ/</url>
+    <content><![CDATA[<p><strong>RabbitMQ</strong><br>消息队列 RabbitMQ学习记录</p>
+<a id="more"></a>
+<h1 id="1-为何使用RabbitMQ"><a href="#1-为何使用RabbitMQ" class="headerlink" title="1.为何使用RabbitMQ"></a>1.为何使用RabbitMQ</h1><h4 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h4><h1 id="2-RabbitMQ组件"><a href="#2-RabbitMQ组件" class="headerlink" title="2.RabbitMQ组件"></a>2.RabbitMQ组件</h1><p><img src="/2020/05/28/RabbitMQ/%E7%BB%84%E4%BB%B6.png" alt></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>redis</title>
+    <url>/2021/06/30/redis/</url>
+    <content><![CDATA[<p> <strong>Redis的安装</strong> </p>
+<hr>
+<a id="more"></a>
+<h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h4><blockquote>
+<p>wget -P /root/softdev <a href="http://download.redis.io/releases/redis-5.0.5.tar.gz" target="_blank" rel="noopener">http://download.redis.io/releases/redis-5.0.5.tar.gz</a></p>
+</blockquote>
+<h4 id="2-解压"><a href="#2-解压" class="headerlink" title="2.解压"></a>2.解压</h4><blockquote>
+<p>tar zxvf redis-5.0.5.tar.gz -C /root/redis</p>
+</blockquote>
+<h4 id="3-安装C语言环境"><a href="#3-安装C语言环境" class="headerlink" title="3.安装C语言环境"></a>3.安装C语言环境</h4><blockquote>
+<p>yum install gcc-c++</p>
+</blockquote>
+<h4 id="4-切换到redis安装目录下-执行"><a href="#4-切换到redis安装目录下-执行" class="headerlink" title="4.切换到redis安装目录下.执行"></a>4.切换到redis安装目录下.执行</h4><blockquote>
+<p>make</p>
+</blockquote>
+<p><img src="/2021/06/30/redis/1.png" alt></p>
+<h4 id="5-修改配置文件redis-conf"><a href="#5-修改配置文件redis-conf" class="headerlink" title="5.修改配置文件redis.conf"></a>5.修改配置文件redis.conf</h4><ul>
+<li>将daemonize后面的no改为yes,意为后台运行的意思</li>
+</ul>
+<p><img src="/2021/06/30/redis/2.png" alt></p>
+<ul>
+<li>将requirepass前面的#号去掉,开启密码验证,然后后面是我设置的密码</li>
+</ul>
+<p><img src="/2021/06/30/redis/3.png" alt>　</p>
+<ul>
+<li>允许其他ip地址访问</li>
+</ul>
+<p><img src="/2021/06/30/redis/4.png" alt></p>
+<h4 id="6-redis命令"><a href="#6-redis命令" class="headerlink" title="6.redis命令"></a>6.redis命令</h4><ul>
+<li>启动：</li>
+</ul>
+<blockquote>
+<p>src/redis-server redis.conf</p>
+</blockquote>
+<ul>
+<li>查看进程</li>
+</ul>
+<blockquote>
+<p>ps aux |grep redis</p>
+</blockquote>
+<p> <img src="/2021/06/30/redis/5.png" alt></p>
+<ul>
+<li>关闭redis</li>
+</ul>
+<blockquote>
+<p> kill -9 redis端口号</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Ngroc</title>
+    <url>/2021/06/30/ngrok/</url>
+    <content><![CDATA[<h1 id="Ngrok实现内网穿透"><a href="#Ngrok实现内网穿透" class="headerlink" title="Ngrok实现内网穿透"></a>Ngrok实现内网穿透</h1><hr>
+<p><strong>前言</strong>：一直在开发Web项目，但都是在本地运行能跑起来,一直都想把运行的项目能够在手机上能看见（不是一个局域网中也能看见），因为我只是想来做个测试，不想购买服务器和域名，也不想配置，如果我的电脑能作为服务端，有开发环境，又有tomcat，数据库等等，如果能够直接将开发用的电脑的这个内网的IP映射到公网多好啊。于是就了解到了要用到内网穿透，内网穿透就会用到Ngrok,而且是免费的。</p>
+<a id="more"></a>
+<ul>
+<li><strong>内网穿透</strong><br>　　内网穿透其作用，简而言之就是将内网IP映射成对外可访问的域名。（这里要是不知道为什么需要暴露在公网上，就需要复习一下网络方面的知识了，例如网络七层协议。还有IP和域名这些网络方面的知识。这个说来就话长了）Ngrok可以理解为内网穿透工具。</li>
+</ul>
+<h2 id="Ngroc具体使用流程"><a href="#Ngroc具体使用流程" class="headerlink" title="Ngroc具体使用流程"></a>Ngroc具体使用流程</h2><p>1.因为开发环境是windows操作系统,安装windows版本的ngroc，从官网<a href="https://ngrok.com/" target="_blank" rel="noopener" title="ngrok官网">https://ngrok.com/  </a>  下载，注册并获取密钥</p>
+<p><img src="/2021/06/30/ngrok/%E5%AF%86%E9%92%A5.png" alt></p>
+<p>2.在ngrok.exe根目录打开cmd执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok authtoken 授权码</span><br></pre></td></tr></table></figure>
+<p>授权码和账户是绑定的，在授权命令运行后，ngrok会将授权码保存在~/.ngrok2/ngrok.yml中，所以只需要运行一次，以后都可以使用。<br>3.执行以下代码来选择你要暴露的端口</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok http 80</span><br></pre></td></tr></table></figure>
+<p><img src="ngrok/http.png" alt><br>4.每次启动ngrok都会分配一个新的外网域名，所以需要每次更换配置或者更换访问地址，不太方便。当然，ngrok也提供了解决方法，那就是付费，可以设置固定域名。</p>
+]]></content>
+      <categories>
+        <category>服务器</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>test</title>
+    <url>/2021/12/19/test/</url>
+    <content><![CDATA[<p><strong>title</strong><br>xxxxxxxxxxxxxxxx</p>
+<a id="more"></a>
+<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2>]]></content>
   </entry>
   <entry>
     <title>Nginx</title>
@@ -110,115 +201,18 @@
       </categories>
   </entry>
   <entry>
-    <title>Ngroc</title>
-    <url>/2021/06/30/ngrok/</url>
-    <content><![CDATA[<h1 id="Ngrok实现内网穿透"><a href="#Ngrok实现内网穿透" class="headerlink" title="Ngrok实现内网穿透"></a>Ngrok实现内网穿透</h1><hr>
-<p><strong>前言</strong>：一直在开发Web项目，但都是在本地运行能跑起来,一直都想把运行的项目能够在手机上能看见（不是一个局域网中也能看见），因为我只是想来做个测试，不想购买服务器和域名，也不想配置，如果我的电脑能作为服务端，有开发环境，又有tomcat，数据库等等，如果能够直接将开发用的电脑的这个内网的IP映射到公网多好啊。于是就了解到了要用到内网穿透，内网穿透就会用到Ngrok,而且是免费的。</p>
+    <title>vue条形码生成插</title>
+    <url>/2020/05/12/vue%E6%9D%A1%E5%BD%A2%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92/</url>
+    <content><![CDATA[<p><strong>vue插件动态生成条形码</strong></p>
 <a id="more"></a>
-<ul>
-<li><strong>内网穿透</strong><br>　　内网穿透其作用，简而言之就是将内网IP映射成对外可访问的域名。（这里要是不知道为什么需要暴露在公网上，就需要复习一下网络方面的知识了，例如网络七层协议。还有IP和域名这些网络方面的知识。这个说来就话长了）Ngrok可以理解为内网穿透工具。</li>
-</ul>
-<h2 id="Ngroc具体使用流程"><a href="#Ngroc具体使用流程" class="headerlink" title="Ngroc具体使用流程"></a>Ngroc具体使用流程</h2><p>1.因为开发环境是windows操作系统,安装windows版本的ngroc，从官网<a href="https://ngrok.com/" target="_blank" rel="noopener" title="ngrok官网">https://ngrok.com/  </a>  下载，注册并获取密钥</p>
-<p><img src="/2021/06/30/ngrok/%E5%AF%86%E9%92%A5.png" alt></p>
-<p>2.在ngrok.exe根目录打开cmd执行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok authtoken 授权码</span><br></pre></td></tr></table></figure>
-<p>授权码和账户是绑定的，在授权命令运行后，ngrok会将授权码保存在~/.ngrok2/ngrok.yml中，所以只需要运行一次，以后都可以使用。<br>3.执行以下代码来选择你要暴露的端口</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok http 80</span><br></pre></td></tr></table></figure>
-<p><img src="ngrok/http.png" alt><br>4.每次启动ngrok都会分配一个新的外网域名，所以需要每次更换配置或者更换访问地址，不太方便。当然，ngrok也提供了解决方法，那就是付费，可以设置固定域名。</p>
+<h1 id="1-安装组件"><a href="#1-安装组件" class="headerlink" title="1.安装组件"></a>1.安装组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install @xkeshi&#x2F;vue-barcode vue</span><br></pre></td></tr></table></figure>
+<h1 id="2-main-js中引入注册组件"><a href="#2-main-js中引入注册组件" class="headerlink" title="2.main.js中引入注册组件"></a>2.main.js中引入注册组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;条形码</span><br><span class="line">import VueBarcode from &#39;@xkeshi&#x2F;vue-barcode&#39;;</span><br><span class="line">Vue.component(&#39;barcode&#39;, VueBarcode);</span><br></pre></td></tr></table></figure>
+<h1 id="3-使用组件"><a href="#3-使用组件" class="headerlink" title="3.使用组件"></a>3.使用组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;barcode</span><br><span class="line">	:value&#x3D;&quot;list.examineNumber&quot;</span><br><span class="line">	:options&#x3D;&quot;&#123; height:&#39;100px&#39;,</span><br><span class="line">	width:&#39;3px&#39;,</span><br><span class="line">	fontSize: &#39;30px&#39;,</span><br><span class="line">	background:&#39;transparent&#39;&#125;&quot;&gt;</span><br><span class="line">&lt;&#x2F;barcode&gt;</span><br></pre></td></tr></table></figure>
+<p>#4.效果</p>
+<p> <img src="/2020/05/12/vue%E6%9D%A1%E5%BD%A2%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92/%E6%9D%A1%E5%BD%A2%E7%A0%81.png" alt></p>
 ]]></content>
       <categories>
-        <category>服务器</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>RabbitMQ</title>
-    <url>/2020/05/28/RabbitMQ/</url>
-    <content><![CDATA[<p><strong>RabbitMQ</strong><br>消息队列 RabbitMQ学习记录</p>
-<a id="more"></a>
-<h1 id="1-为何使用RabbitMQ"><a href="#1-为何使用RabbitMQ" class="headerlink" title="1.为何使用RabbitMQ"></a>1.为何使用RabbitMQ</h1><h4 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h4><h1 id="2-RabbitMQ组件"><a href="#2-RabbitMQ组件" class="headerlink" title="2.RabbitMQ组件"></a>2.RabbitMQ组件</h1><p><img src="/2020/05/28/RabbitMQ/%E7%BB%84%E4%BB%B6.png" alt></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>redis</title>
-    <url>/2021/06/30/redis/</url>
-    <content><![CDATA[<p> <strong>Redis的安装</strong> </p>
-<hr>
-<a id="more"></a>
-<h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h4><blockquote>
-<p>wget -P /root/softdev <a href="http://download.redis.io/releases/redis-5.0.5.tar.gz" target="_blank" rel="noopener">http://download.redis.io/releases/redis-5.0.5.tar.gz</a></p>
-</blockquote>
-<h4 id="2-解压"><a href="#2-解压" class="headerlink" title="2.解压"></a>2.解压</h4><blockquote>
-<p>tar zxvf redis-5.0.5.tar.gz -C /root/redis</p>
-</blockquote>
-<h4 id="3-安装C语言环境"><a href="#3-安装C语言环境" class="headerlink" title="3.安装C语言环境"></a>3.安装C语言环境</h4><blockquote>
-<p>yum install gcc-c++</p>
-</blockquote>
-<h4 id="4-切换到redis安装目录下-执行"><a href="#4-切换到redis安装目录下-执行" class="headerlink" title="4.切换到redis安装目录下.执行"></a>4.切换到redis安装目录下.执行</h4><blockquote>
-<p>make</p>
-</blockquote>
-<p><img src="/2021/06/30/redis/1.png" alt></p>
-<h4 id="5-修改配置文件redis-conf"><a href="#5-修改配置文件redis-conf" class="headerlink" title="5.修改配置文件redis.conf"></a>5.修改配置文件redis.conf</h4><ul>
-<li>将daemonize后面的no改为yes,意为后台运行的意思</li>
-</ul>
-<p><img src="/2021/06/30/redis/2.png" alt></p>
-<ul>
-<li>将requirepass前面的#号去掉,开启密码验证,然后后面是我设置的密码</li>
-</ul>
-<p><img src="/2021/06/30/redis/3.png" alt>　</p>
-<ul>
-<li>允许其他ip地址访问</li>
-</ul>
-<p><img src="/2021/06/30/redis/4.png" alt></p>
-<h4 id="6-redis命令"><a href="#6-redis命令" class="headerlink" title="6.redis命令"></a>6.redis命令</h4><ul>
-<li>启动：</li>
-</ul>
-<blockquote>
-<p>src/redis-server redis.conf</p>
-</blockquote>
-<ul>
-<li>查看进程</li>
-</ul>
-<blockquote>
-<p>ps aux |grep redis</p>
-</blockquote>
-<p> <img src="/2021/06/30/redis/5.png" alt></p>
-<ul>
-<li>关闭redis</li>
-</ul>
-<blockquote>
-<p> kill -9 redis端口号</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>swagger</title>
-    <url>/2021/06/30/swagger/</url>
-    <content><![CDATA[<p><strong>Swagger</strong><br>Springboot集成swagger</p>
-<hr>
-<a id="more"></a>
-<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;io.springfox&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;2.9.2&lt;/version&gt;</span><br><span class="line">     &lt;/dependency&gt;</span><br><span class="line">     &lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;io.springfox&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;2.9.2&lt;/version&gt;</span><br><span class="line">     &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!--美化swagger--&gt;</span><br><span class="line">     &lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;com.github.xiaoymin&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;swagger-bootstrap-ui&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;1.9.3&lt;/version&gt;</span><br><span class="line">     &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-创建SwaggerConfig"><a href="#2-创建SwaggerConfig" class="headerlink" title="2.创建SwaggerConfig"></a>2.创建SwaggerConfig</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableSwagger</span>2</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Docket <span class="title">createRestApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">                .groupName(<span class="string">"demo"</span>)</span><br><span class="line">                .apiInfo(apiInfo())</span><br><span class="line">                .select()</span><br><span class="line">                <span class="comment">// 设置basePackage会将包下的所有类的所有方法作为api</span></span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage(<span class="string">"com.wcy.myweb.Controller"</span>))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ApiInfo <span class="title">apiInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ApiInfoBuilder()</span><br><span class="line">                .title(<span class="string">"微信端后台对外API接口列表"</span>)</span><br><span class="line">                .description(<span class="string">"YXClouud-WeChat"</span>)</span><br><span class="line">                .version(<span class="string">"1.0"</span>)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-Api注解"><a href="#3-Api注解" class="headerlink" title="3.Api注解"></a>3.Api注解</h2><ul>
-<li>@Api()<br>用于类；表示标识这个类是swagger的资源<br>tags–表示说明<br>value–也是说明，可以使用tags替代 </li>
-<li>@ApiOperation() 用于方法；表示一个http请求的操作<br>value用于方法描述<br>notes用于提示内容<br>tags可以重新分组（视情况而用）</li>
-<li>@ApiParam() 用于方法，参数，字段说明；表示对参数的添加元数据（说明或是否必填等）<br>name–参数名<br>value–参数说明<br>required–是否必填</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"test"</span>)</span><br><span class="line"><span class="meta">@Api</span>(tags=<span class="string">"测试"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    IRoleService iRoleService;</span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/getrole"</span>)</span><br><span class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"获取角色信息"</span>, notes = <span class="string">"以n角色名称为参数"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Role <span class="title">getRole</span><span class="params">(@ApiParam(name = <span class="string">"RoleName"</span>, value = <span class="string">"角色名称"</span>)</span> String RoleName )</span>&#123;</span><br><span class="line">        Role role = iRoleService.GetRole(RoleName);</span><br><span class="line">        <span class="keyword">return</span> role;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-效果"><a href="#4-效果" class="headerlink" title="4.效果"></a>4.效果</h2><ul>
-<li>swagger-ui的效果<br>输入:<code>http://localhost:配置的端口号/swagger-ui.html</code><br><img src="/2021/06/30/swagger/swagger1.png" alt><ul>
-<li>swagger-bootstrap-ui效果<br>输入：<code>http://localhost:自己的端口/doc.html</code><br><img src="/2021/06/30/swagger/swagger2.png" alt></li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>工具</category>
+        <category>Vue</category>
       </categories>
   </entry>
   <entry>
@@ -274,6 +268,34 @@
       </categories>
   </entry>
   <entry>
+    <title>swagger</title>
+    <url>/2021/06/30/swagger/</url>
+    <content><![CDATA[<p><strong>Swagger</strong><br>Springboot集成swagger</p>
+<hr>
+<a id="more"></a>
+<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;io.springfox&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;2.9.2&lt;/version&gt;</span><br><span class="line">     &lt;/dependency&gt;</span><br><span class="line">     &lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;io.springfox&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;2.9.2&lt;/version&gt;</span><br><span class="line">     &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">     &lt;!--美化swagger--&gt;</span><br><span class="line">     &lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;com.github.xiaoymin&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;swagger-bootstrap-ui&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;1.9.3&lt;/version&gt;</span><br><span class="line">     &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-创建SwaggerConfig"><a href="#2-创建SwaggerConfig" class="headerlink" title="2.创建SwaggerConfig"></a>2.创建SwaggerConfig</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableSwagger</span>2</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Docket <span class="title">createRestApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">                .groupName(<span class="string">"demo"</span>)</span><br><span class="line">                .apiInfo(apiInfo())</span><br><span class="line">                .select()</span><br><span class="line">                <span class="comment">// 设置basePackage会将包下的所有类的所有方法作为api</span></span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage(<span class="string">"com.wcy.myweb.Controller"</span>))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ApiInfo <span class="title">apiInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ApiInfoBuilder()</span><br><span class="line">                .title(<span class="string">"微信端后台对外API接口列表"</span>)</span><br><span class="line">                .description(<span class="string">"YXClouud-WeChat"</span>)</span><br><span class="line">                .version(<span class="string">"1.0"</span>)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Api注解"><a href="#3-Api注解" class="headerlink" title="3.Api注解"></a>3.Api注解</h2><ul>
+<li>@Api()<br>用于类；表示标识这个类是swagger的资源<br>tags–表示说明<br>value–也是说明，可以使用tags替代 </li>
+<li>@ApiOperation() 用于方法；表示一个http请求的操作<br>value用于方法描述<br>notes用于提示内容<br>tags可以重新分组（视情况而用）</li>
+<li>@ApiParam() 用于方法，参数，字段说明；表示对参数的添加元数据（说明或是否必填等）<br>name–参数名<br>value–参数说明<br>required–是否必填</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"test"</span>)</span><br><span class="line"><span class="meta">@Api</span>(tags=<span class="string">"测试"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoleController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    IRoleService iRoleService;</span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/getrole"</span>)</span><br><span class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"获取角色信息"</span>, notes = <span class="string">"以n角色名称为参数"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Role <span class="title">getRole</span><span class="params">(@ApiParam(name = <span class="string">"RoleName"</span>, value = <span class="string">"角色名称"</span>)</span> String RoleName )</span>&#123;</span><br><span class="line">        Role role = iRoleService.GetRole(RoleName);</span><br><span class="line">        <span class="keyword">return</span> role;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-效果"><a href="#4-效果" class="headerlink" title="4.效果"></a>4.效果</h2><ul>
+<li>swagger-ui的效果<br>输入:<code>http://localhost:配置的端口号/swagger-ui.html</code><br><img src="/2021/06/30/swagger/swagger1.png" alt><ul>
+<li>swagger-bootstrap-ui效果<br>输入：<code>http://localhost:自己的端口/doc.html</code><br><img src="/2021/06/30/swagger/swagger2.png" alt></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+  </entry>
+  <entry>
     <title>解析word文档中的表格，自动生成sql语句</title>
     <url>/2021/01/18/%E8%A7%A3%E6%9E%90word%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90sql%E8%AF%AD%E5%8F%A5/</url>
     <content><![CDATA[<p><strong>利用poi解析word.doc或.docx中的表格来自动生成sql语句</strong></p>
@@ -300,28 +322,6 @@
 ]]></content>
       <categories>
         <category>工具</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>test</title>
-    <url>/2021/12/19/test/</url>
-    <content><![CDATA[<p><strong>title</strong><br>xxxxxxxxxxxxxxxx</p>
-<a id="more"></a>
-<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2>]]></content>
-  </entry>
-  <entry>
-    <title>vue条形码生成插</title>
-    <url>/2020/05/12/vue%E6%9D%A1%E5%BD%A2%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92/</url>
-    <content><![CDATA[<p><strong>vue插件动态生成条形码</strong></p>
-<a id="more"></a>
-<h1 id="1-安装组件"><a href="#1-安装组件" class="headerlink" title="1.安装组件"></a>1.安装组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install @xkeshi&#x2F;vue-barcode vue</span><br></pre></td></tr></table></figure>
-<h1 id="2-main-js中引入注册组件"><a href="#2-main-js中引入注册组件" class="headerlink" title="2.main.js中引入注册组件"></a>2.main.js中引入注册组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;条形码</span><br><span class="line">import VueBarcode from &#39;@xkeshi&#x2F;vue-barcode&#39;;</span><br><span class="line">Vue.component(&#39;barcode&#39;, VueBarcode);</span><br></pre></td></tr></table></figure>
-<h1 id="3-使用组件"><a href="#3-使用组件" class="headerlink" title="3.使用组件"></a>3.使用组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;barcode</span><br><span class="line">	:value&#x3D;&quot;list.examineNumber&quot;</span><br><span class="line">	:options&#x3D;&quot;&#123; height:&#39;100px&#39;,</span><br><span class="line">	width:&#39;3px&#39;,</span><br><span class="line">	fontSize: &#39;30px&#39;,</span><br><span class="line">	background:&#39;transparent&#39;&#125;&quot;&gt;</span><br><span class="line">&lt;&#x2F;barcode&gt;</span><br></pre></td></tr></table></figure>
-<p>#4.效果</p>
-<p> <img src="/2020/05/12/vue%E6%9D%A1%E5%BD%A2%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92/%E6%9D%A1%E5%BD%A2%E7%A0%81.png" alt></p>
-]]></content>
-      <categories>
-        <category>Vue</category>
       </categories>
   </entry>
 </search>
