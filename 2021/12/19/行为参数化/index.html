@@ -46,19 +46,21 @@
   };
 </script>
 
-  <meta name="description" content="titlexxxxxxxxxxxxxxxx">
+  <meta name="description" content="阅读java8实战得出">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://kiritoyang.github.io/2021/12/19/test/index.html">
+<meta property="og:title" content="行为参数化">
+<meta property="og:url" content="https://kiritoyang.github.io/2021/12/19/%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/index.html">
 <meta property="og:site_name" content="Kiritoyang">
-<meta property="og:description" content="titlexxxxxxxxxxxxxxxx">
+<meta property="og:description" content="阅读java8实战得出">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kiritoyang.github.io/2021/12/19/%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/p1.png">
 <meta property="article:published_time" content="2021-12-19T15:38:17.000Z">
-<meta property="article:modified_time" content="2021-12-19T15:42:20.512Z">
+<meta property="article:modified_time" content="2021-12-24T06:48:03.731Z">
 <meta property="article:author" content="Kiritoyang">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kiritoyang.github.io/2021/12/19/%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/p1.png">
 
-<link rel="canonical" href="https://kiritoyang.github.io/2021/12/19/test/">
+<link rel="canonical" href="https://kiritoyang.github.io/2021/12/19/%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/">
 
 
 <script id="page-configurations">
@@ -70,7 +72,7 @@
   };
 </script>
 
-  <title>test | Kiritoyang</title>
+  <title>行为参数化 | Kiritoyang</title>
   
 
 
@@ -199,7 +201,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://kiritoyang.github.io/2021/12/19/test/">
+    <link itemprop="mainEntityOfPage" href="https://kiritoyang.github.io/2021/12/19/%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -212,7 +214,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          test
+          行为参数化
         </h1>
 
         <div class="post-meta">
@@ -221,9 +223,26 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-12-19 23:38:17 / 修改时间：23:42:20" itemprop="dateCreated datePublished" datetime="2021-12-19T23:38:17+08:00">2021-12-19</time>
+              <time title="创建时间：2021-12-19 23:38:17" itemprop="dateCreated datePublished" datetime="2021-12-19T23:38:17+08:00">2021-12-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-24 14:48:03" itemprop="dateModified" datetime="2021-12-24T14:48:03+08:00">2021-12-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java8/" itemprop="url" rel="index">
+                    <span itemprop="name">java8</span>
+                  </a>
+                </span>
             </span>
 
           
@@ -242,8 +261,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/12/19/test/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/19/test/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/12/19/%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/19/%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,14 +272,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>27</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -273,9 +292,32 @@
 		
 		
       
-        <p><strong>title</strong><br>xxxxxxxxxxxxxxxx</p>
+        <p>阅读java8实战得出</p>
 <a id="more"></a>
-<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2>
+
+<p>它接受一个Apple的List，并可以对它参数化，以多种方式根据苹果生成一个String输出(有点儿像多个可定制的toString方法)。例如，你 可 以 告 诉 prettyPrintApple 方 法 ， 只 打 印 每 个 苹 果 的 重 量 。 此 外 ， 你 可 以 让 prettyPrintApple方法分别打印每个苹果，然后说明它是重的还是轻的。解决方案和我们 前面讨论的筛选的例子类似，为了帮你上手，我们提供了prettyPrintApple方法的一个粗略的框架:</p>
+<p>public static void prettyPrintApple(List<Apple> inventory, ???){ for(Apple apple: inventory) {</Apple></p>
+<p>​      String output = ???.???(apple);</p>
+<p>​      System.out.println(output);</p>
+<p>​    }</p>
+<p>}</p>
+<h1 id="1-策略模式优化后"><a href="#1-策略模式优化后" class="headerlink" title="1.策略模式优化后"></a>1.策略模式优化后</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplePredicate</span> </span>&#123;</span><br><span class="line">     <span class="function">String <span class="title">printOutApple</span><span class="params">(Apple apple)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColorAndWeightApple</span> <span class="keyword">implements</span> <span class="title">ApplePredicate</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">printOutApple</span><span class="params">(Apple apple)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> apple.getColor()+<span class="string">"苹果"</span>+apple.getWeight()+<span class="string">"kg,产自"</span>+apple.getLocation();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">prettyPrintApple</span><span class="params">(List&lt;Apple&gt; inventory,ApplePredicate applePredicate)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(Apple apple: inventory) &#123;</span><br><span class="line">            String output = applePredicate.printOutApple(apple);</span><br><span class="line">            System.out.println(output);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">测试：</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Apple&gt; inventory = Lists.newArrayList();</span><br><span class="line">        inventory.add(<span class="keyword">new</span> Apple(<span class="string">"绿色"</span>,<span class="number">120</span>,<span class="string">"加拿大"</span>));</span><br><span class="line">        prettyPrintApple(inventory,<span class="keyword">new</span> ColorAndWeightApple());</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-使用匿名类"><a href="#2-使用匿名类" class="headerlink" title="2.使用匿名类"></a>2.使用匿名类</h1><p>​    优化每个策略需要编写一个实现类，太繁琐,匿名类好处不需要实现类了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">prettyPrintApple(inventory, <span class="keyword">new</span> ApplePredicate() &#123;</span><br><span class="line">    				<span class="function"><span class="keyword">public</span> String <span class="title">printOutApple</span><span class="params">(Apple apple)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> apple.getColor()+<span class="string">"苹果"</span>+apple.getWeight()+<span class="string">"kg,产自"</span>+apple.getLocation();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="3-使用lambda"><a href="#3-使用lambda" class="headerlink" title="3.使用lambda"></a>3.使用lambda</h1><p>优化匿名类实现仍有重复框架代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prettyPrintApple(inventory, (Apple apple)</span><br><span class="line">					-&gt; apple.getColor()+<span class="string">"苹果"</span>+apple.getWeight()+<span class="string">"kg,产自"</span>+apple.getLocation());</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-抽象代码"><a href="#4-抽象代码" class="headerlink" title="4.抽象代码"></a>4.抽象代码</h1><p>让代码复用性更高</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Predicate2</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">boolean</span> <span class="title">test</span><span class="params">(T t)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; List&lt;T&gt; <span class="title">prettyPrintApple</span><span class="params">(List&lt;T&gt; inventory, Predicate2&lt;T&gt; p)</span></span>&#123;</span><br><span class="line">        List&lt;T&gt; returnList = Lists.newArrayList();</span><br><span class="line">        <span class="keyword">for</span>(T t: inventory) &#123;</span><br><span class="line">            <span class="keyword">if</span>(p.test(t))&#123;</span><br><span class="line">                returnList.add(t);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> returnList;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line">        List&lt;Apple&gt; a = prettyPrintApple(inventory, Objects::nonNull);</span><br><span class="line">        a.forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">        List&lt;Banana&gt; bList = Lists.newArrayList();</span><br><span class="line">        bList.add(<span class="keyword">new</span> Banana(<span class="string">"GREEN"</span>,<span class="number">21</span>,<span class="string">"8CM"</span>));</span><br><span class="line">        List&lt;Banana&gt; b= prettyPrintApple(bList, Objects::nonNull);</span><br><span class="line">        b.forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="5-运行结果"><a href="#5-运行结果" class="headerlink" title="5.运行结果"></a>5.运行结果</h1><p><img src="/2021/12/19/%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/p1.png" alt></p>
+
     </div>
 	 
 		<div>
@@ -300,8 +342,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/06/30/swagger/" rel="prev" title="swagger">
-      <i class="fa fa-chevron-left"></i> swagger
+    <a href="/2021/06/30/ngrok/" rel="prev" title="Ngroc">
+      <i class="fa fa-chevron-left"></i> Ngroc
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -364,7 +406,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-添加依赖"><span class="nav-number">1.</span> <span class="nav-text">1.添加依赖</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-策略模式优化后"><span class="nav-number">1.</span> <span class="nav-text">1.策略模式优化后</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-使用匿名类"><span class="nav-number">2.</span> <span class="nav-text">2.使用匿名类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-使用lambda"><span class="nav-number">3.</span> <span class="nav-text">3.使用lambda</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-抽象代码"><span class="nav-number">4.</span> <span class="nav-text">4.抽象代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-运行结果"><span class="nav-number">5.</span> <span class="nav-text">5.运行结果</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -387,7 +429,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -422,13 +464,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">20k</span>
+    <span title="站点总字数">22k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">33 分钟</span>
+    <span title="站点阅读时长">36 分钟</span>
 </div>
 
 <img src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png">
