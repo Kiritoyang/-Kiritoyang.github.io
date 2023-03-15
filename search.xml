@@ -12,6 +12,18 @@
       </categories>
   </entry>
   <entry>
+    <title>RabbitMQ</title>
+    <url>/2020/05/28/RabbitMQ/</url>
+    <content><![CDATA[<p><strong>RabbitMQ</strong><br>消息队列 RabbitMQ学习记录</p>
+<a id="more"></a>
+
+<h1 id="1-为何使用RabbitMQ"><a href="#1-为何使用RabbitMQ" class="headerlink" title="1.为何使用RabbitMQ"></a>1.为何使用RabbitMQ</h1><h4 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h4><h1 id="2-RabbitMQ组件"><a href="#2-RabbitMQ组件" class="headerlink" title="2.RabbitMQ组件"></a>2.RabbitMQ组件</h1><p><img src="/2020/05/28/RabbitMQ/%E7%BB%84%E4%BB%B6.png" alt></p>
+]]></content>
+      <categories>
+        <category>中间件</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Mybatis-Plus</title>
     <url>/2021/06/30/Mybatis-Plus/</url>
     <content><![CDATA[<p><strong>SpringBoot集成Mybatis-Plus</strong><br>demo测试了简单的单表查询的但条件查询，更多的查询参照官方文档，<br><a href="https://mp.baomidou.com/guide/generator.html" target="_blank" rel="noopener" title="Mybatis-Plus官网">https://mp.baomidou.com/guide/generator.html</a></p>
@@ -40,6 +52,75 @@
 ]]></content>
       <categories>
         <category>Springboot</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>RocketMQ</title>
+    <url>/2022/03/18/RocketMQ/</url>
+    <content><![CDATA[<p><strong>RocketMQ</strong></p>
+<a id="more"></a>
+
+<h2 id="1-启动nameserver"><a href="#1-启动nameserver" class="headerlink" title="1.启动nameserver"></a>1.启动nameserver</h2><p>本地安装mq4.7.0版本（客户项目中引入的客户端是4.7）</p>
+<p>docker pull foxiswho/rocketmq:4.7.0</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> docker run -d \</span><br><span class="line">--restart&#x3D;always \</span><br><span class="line">--name rmqnamesrv \</span><br><span class="line">-p 9876:9876 \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;namesrv&#x2F;logs:&#x2F;root&#x2F;logs \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;namesrv&#x2F;store:&#x2F;root&#x2F;store \</span><br><span class="line">-e &quot;MAX_POSSIBLE_HEAP&#x3D;100000000&quot; \</span><br><span class="line">foxiswho&#x2F;rocketmq:4.7.0 \</span><br><span class="line">sh mqnamesrv</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-启用broker"><a href="#2-启用broker" class="headerlink" title="2.启用broker"></a>2.启用broker</h2><p>先配置 /Users/kirito/dockerConfig/rocketMQ/conf/broker.conf   创建文件</p>
+<p>mkdir -p /Users/kirito/dockerConfig/rocketMQ/data/broker/logs  /Users/kirito/dockerConfig/rocketMQ/data/broker/store </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 所属集群名称，如果节点较多可以配置多个</span><br><span class="line">brokerClusterName &#x3D; DefaultCluster</span><br><span class="line">#broker名称，master和slave使用相同的名称，表明他们的主从关系</span><br><span class="line">brokerName &#x3D; broker-a</span><br><span class="line">#0表示Master，大于0表示不同的slave</span><br><span class="line">brokerId &#x3D; 0</span><br><span class="line">#表示几点做消息删除动作，默认是凌晨4点</span><br><span class="line">deleteWhen &#x3D; 04</span><br><span class="line">#在磁盘上保留消息的时长，单位是小时</span><br><span class="line">fileReservedTime &#x3D; 48</span><br><span class="line">#有三个值：SYNC_MASTER，ASYNC_MASTER，SLAVE；同步和异步表示Master和Slave之间同步数据的机制；</span><br><span class="line">brokerRole &#x3D; ASYNC_MASTER</span><br><span class="line">#刷盘策略，取值为：ASYNC_FLUSH，SYNC_FLUSH表示同步刷盘和异步刷盘；SYNC_FLUSH消息写入磁盘后才返回成功状态，ASYNC_FLUSH不需要；</span><br><span class="line">flushDiskType &#x3D; ASYNC_FLUSH</span><br><span class="line"># 设置broker节点所在服务器的ip地址</span><br><span class="line">brokerIP1 &#x3D; 172.18.21.156</span><br></pre></td></tr></table></figure>
+
+<p>接着启动broker</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -d  \</span><br><span class="line">--restart&#x3D;always \</span><br><span class="line">--name rmqbroker \</span><br><span class="line">--link rmqnamesrv:namesrv \</span><br><span class="line">-p 10911:10911 \</span><br><span class="line">-p 10909:10909 \</span><br><span class="line">-v  &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;broker&#x2F;logs:&#x2F;root&#x2F;logs \</span><br><span class="line">-v  &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;broker&#x2F;store:&#x2F;root&#x2F;store \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;conf&#x2F;broker.conf:&#x2F;opt&#x2F;rocketmq-4.7.0&#x2F;conf&#x2F;broker.conf \</span><br><span class="line">-e &quot;NAMESRV_ADDR&#x3D;namesrv:9876&quot; \</span><br><span class="line">-e &quot;MAX_POSSIBLE_HEAP&#x3D;200000000&quot; \</span><br><span class="line">foxiswho&#x2F;rocketmq:4.7.0 \</span><br><span class="line">sh mqbroker -c &#x2F;opt&#x2F;rocketmq-4.7.0&#x2F;conf&#x2F;broker.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-启动console控制台"><a href="#3-启动console控制台" class="headerlink" title="3.启动console控制台"></a>3.启动console控制台</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -d --name rmqconsole -p 8900:8080 \</span><br><span class="line"> -e &quot;JAVA_OPTS&#x3D;-Drocketmq.namesrv.addr&#x3D;172.18.21.156:9876\</span><br><span class="line"> -Dcom.rocketmq.sendMessageWithVIPChannel&#x3D;false&quot;\</span><br><span class="line"> -t styletang&#x2F;rocketmq-console-ng</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Spring-Boot-集成和Demo"><a href="#4-Spring-Boot-集成和Demo" class="headerlink" title="4.Spring Boot 集成和Demo"></a>4.Spring Boot 集成和Demo</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.rocketmq&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;rocketmq-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.7.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-官网Demo-Test"><a href="#5-官网Demo-Test" class="headerlink" title="5.官网Demo  Test"></a>5.官网Demo  Test</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMQ</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span> <span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 实例化消息生产者Producer</span></span><br><span class="line">        DefaultMQProducer producer = <span class="keyword">new</span> DefaultMQProducer(<span class="string">"please_rename_unique_group_name"</span>);</span><br><span class="line">        <span class="comment">// 设置NameServer的地址</span></span><br><span class="line">        producer.setNamesrvAddr(<span class="string">"localhost:9876"</span>);</span><br><span class="line">        <span class="comment">// 启动Producer实例</span></span><br><span class="line">        producer.start();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 创建消息，并指定Topic，Tag和消息体</span></span><br><span class="line">            Message msg = <span class="keyword">new</span> Message(<span class="string">"TopicTest"</span>,</span><br><span class="line">                    <span class="string">"TagA"</span> ,</span><br><span class="line">                    (<span class="string">"Hello RocketMQ "</span> + i).getBytes(RemotingHelper.DEFAULT_CHARSET) <span class="comment">/* Message body */</span></span><br><span class="line">            );</span><br><span class="line">            <span class="comment">// 发送消息到一个Broker</span></span><br><span class="line">            SendResult sendResult = producer.send(msg);</span><br><span class="line">            <span class="comment">// 通过sendResult返回消息是否成功送达</span></span><br><span class="line">            System.out.printf(<span class="string">"%s%n"</span>, sendResult);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果不再发送消息，关闭Producer实例。</span></span><br><span class="line">        producer.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/18/RocketMQ/image-20220321174202142.png" alt="image-20220321174202142"></p>
+<p>rocket源码地址： <a href="https://github.com/apache/rocketmq" target="_blank" rel="noopener">https://github.com/apache/rocketmq</a></p>
+<h2 id="6-消息队列原理理解"><a href="#6-消息队列原理理解" class="headerlink" title="6.消息队列原理理解"></a>6.消息队列原理理解</h2><ul>
+<li><p>保证消息不丢失</p>
+<p>生产者 ←→broker ←→消费者</p>
+<p>消息丢失会发生在三者交互的过程中</p>
+<p>1.生产者到broker：</p>
+<p>​        消息发送成功或者失败要打印消息日志，务必要打印SendResult和key字段。send消息方法只要不抛异常，就代表发送成功。发送成功会有多个状态，在sendResult里定义。</p>
+<p>2.broker存储消息：</p>
+<p>​        单机情况下是消息刷盘后返回响应，集群多副本情况下，即发送至两个副本及以上的情况下再返回响应r`</p>
+<p>3.消费者消费就丢失</p>
+<p>​        需要在执行完真正的业务逻辑之后再返回响应给<code>Broker</code></p>
+</li>
+<li><p>消息重复</p>
+<p>因为网络传输等等故障，确认信息没有传送到消息队列，导致消息队列不知道自己已经消费过该消息了，再次将消息分发给其他的消费者。消费者保证消息幂等性就可以避免，例如利用唯一标识来确认是否消费过消息，新增客服消息时只要表中存在这个客服的唯一码就不再消费消息</p>
+</li>
+<li><p>消息重试</p>
+<p>消费异常设置失败多少次就返回成功并打印日志。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                logger.error(String.format(<span class="string">"Handle New Message Exception-currentThreadName=%s-[topic=%s, tags=%s, msgId=%s, brokerName=%s, queueId=%s, queueOffset=%s, storeTimestamp=%s, reconsumeTimes=%s, msgBody=%s]"</span>,</span><br><span class="line">                        Thread.currentThread().getName(), msg.getTopic(), msg.getTags(), msg.getMsgId(), msg.getBrokerName(), msg.getQueueId(), msg.getQueueOffset(),</span><br><span class="line">                        msg.getStoreTimestamp(), msg.getReconsumeTimes(), msgBody), e);</span><br><span class="line">                <span class="comment">// 消息重新消费3次</span></span><br><span class="line">                <span class="keyword">if</span> (msg.getReconsumeTimes() &gt;= Constants.MAX_RETRY_TIMES) &#123;</span><br><span class="line">                    <span class="keyword">return</span> ConsumeOrderlyStatus.SUCCESS;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ul>
+<p><strong>复制策略</strong></p>
+<p>复制策略是Broker的Master与Slave间的数据同步方式。分为同步复制与异步复制：</p>
+<ul>
+<li>同步复制：消息写入master后，master会等待slave同步数据成功后才向producer返回成功ACK</li>
+<li>异步复制：消息写入master后，master立即向producer返回成功ACK，无需等待slave同步数据成功</li>
+</ul>
+<blockquote>
+<p>异步复制策略会降低系统的写入延迟，RT变小，提高了系统的吞吐量</p>
+</blockquote>
+<p><strong>刷盘策略</strong></p>
+<p>PageCache高速页缓存：Linux系统自带的一块缓存区，是Linux对文件的缓存，用于加速对文件的读写。Linux会将一部分内存作为PageCache。</p>
+<p>同步刷盘：消息被写入PageCache后立即刷盘，只有当消息被持久化到磁盘后才会响应ACK。</p>
+<p>异步刷盘：消息在被写入PageCache后就会响应ACK，当PageCache里的消息积累到一定量后，由OS线程将PageCache里的消息刷入磁盘。注：如果RocketMQ服务挂了，PageCache里的消息并不会丢失，因为PageCache是属于Linux系统的缓冲区，只有当服务器突然断电才会导致消息丢失。</p>
+<p>异步刷盘+缓冲区：RocketMQ将一部分内存当做缓冲区，消息被写入内存缓冲区后就返回ACK，由后台程序将内存缓冲区里的消息刷入磁盘。注：在该模式下，RocketMQ服务宕机或服务器突然断电都会导致消息丢失。</p>
+<p>同步刷盘：最可靠，性能低<br>异步刷盘：较为可靠，性能较高<br>异步刷盘+缓冲区：不太可靠，性能最高</p>
+]]></content>
+      <categories>
+        <category>中间件</category>
       </categories>
   </entry>
   <entry>
@@ -110,14 +191,80 @@
       </categories>
   </entry>
   <entry>
-    <title>RabbitMQ</title>
-    <url>/2020/05/28/RabbitMQ/</url>
-    <content><![CDATA[<p><strong>RabbitMQ</strong><br>消息队列 RabbitMQ学习记录</p>
+    <title>redis</title>
+    <url>/2021/06/30/redis/</url>
+    <content><![CDATA[<p> <strong>Redis的安装</strong> </p>
+<hr>
 <a id="more"></a>
-<h1 id="1-为何使用RabbitMQ"><a href="#1-为何使用RabbitMQ" class="headerlink" title="1.为何使用RabbitMQ"></a>1.为何使用RabbitMQ</h1><h4 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h4><h1 id="2-RabbitMQ组件"><a href="#2-RabbitMQ组件" class="headerlink" title="2.RabbitMQ组件"></a>2.RabbitMQ组件</h1><p><img src="/2020/05/28/RabbitMQ/%E7%BB%84%E4%BB%B6.png" alt></p>
+
+<h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h4><blockquote>
+<p>wget -P /root/softdev <a href="http://download.redis.io/releases/redis-5.0.5.tar.gz" target="_blank" rel="noopener">http://download.redis.io/releases/redis-5.0.5.tar.gz</a></p>
+</blockquote>
+<h4 id="2-解压"><a href="#2-解压" class="headerlink" title="2.解压"></a>2.解压</h4><blockquote>
+<p>tar zxvf redis-5.0.5.tar.gz -C /root/redis</p>
+</blockquote>
+<h4 id="3-安装C语言环境"><a href="#3-安装C语言环境" class="headerlink" title="3.安装C语言环境"></a>3.安装C语言环境</h4><blockquote>
+<p>yum install gcc-c++</p>
+</blockquote>
+<h4 id="4-切换到redis安装目录下-执行"><a href="#4-切换到redis安装目录下-执行" class="headerlink" title="4.切换到redis安装目录下.执行"></a>4.切换到redis安装目录下.执行</h4><blockquote>
+<p>make</p>
+</blockquote>
+<p><img src="/2021/06/30/redis/1.png" alt></p>
+<h4 id="5-修改配置文件redis-conf"><a href="#5-修改配置文件redis-conf" class="headerlink" title="5.修改配置文件redis.conf"></a>5.修改配置文件redis.conf</h4><ul>
+<li>将daemonize后面的no改为yes,意为后台运行的意思</li>
+</ul>
+<p><img src="/2021/06/30/redis/2.png" alt></p>
+<ul>
+<li>将requirepass前面的#号去掉,开启密码验证,然后后面是我设置的密码</li>
+</ul>
+<p><img src="/2021/06/30/redis/3.png" alt>　</p>
+<ul>
+<li>允许其他ip地址访问</li>
+</ul>
+<p><img src="/2021/06/30/redis/4.png" alt></p>
+<h4 id="6-redis命令"><a href="#6-redis命令" class="headerlink" title="6.redis命令"></a>6.redis命令</h4><ul>
+<li>启动：</li>
+</ul>
+<blockquote>
+<p>src/redis-server redis.conf</p>
+</blockquote>
+<ul>
+<li>查看进程</li>
+</ul>
+<blockquote>
+<p>ps aux |grep redis</p>
+</blockquote>
+<p> <img src="/2021/06/30/redis/5.png" alt></p>
+<ul>
+<li>关闭redis</li>
+</ul>
+<blockquote>
+<p> kill -9 redis端口号</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>中间件</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Ngroc</title>
+    <url>/2021/06/30/ngrok/</url>
+    <content><![CDATA[<h1 id="Ngrok实现内网穿透"><a href="#Ngrok实现内网穿透" class="headerlink" title="Ngrok实现内网穿透"></a>Ngrok实现内网穿透</h1><hr>
+<p><strong>前言</strong>：一直在开发Web项目，但都是在本地运行能跑起来,一直都想把运行的项目能够在手机上能看见（不是一个局域网中也能看见），因为我只是想来做个测试，不想购买服务器和域名，也不想配置，如果我的电脑能作为服务端，有开发环境，又有tomcat，数据库等等，如果能够直接将开发用的电脑的这个内网的IP映射到公网多好啊。于是就了解到了要用到内网穿透，内网穿透就会用到Ngrok,而且是免费的。</p>
+<a id="more"></a>
+<ul>
+<li><strong>内网穿透</strong><br>　　内网穿透其作用，简而言之就是将内网IP映射成对外可访问的域名。（这里要是不知道为什么需要暴露在公网上，就需要复习一下网络方面的知识了，例如网络七层协议。还有IP和域名这些网络方面的知识。这个说来就话长了）Ngrok可以理解为内网穿透工具。</li>
+</ul>
+<h2 id="Ngroc具体使用流程"><a href="#Ngroc具体使用流程" class="headerlink" title="Ngroc具体使用流程"></a>Ngroc具体使用流程</h2><p>1.因为开发环境是windows操作系统,安装windows版本的ngroc，从官网<a href="https://ngrok.com/" target="_blank" rel="noopener" title="ngrok官网">https://ngrok.com/  </a>  下载，注册并获取密钥</p>
+<p><img src="/2021/06/30/ngrok/%E5%AF%86%E9%92%A5.png" alt></p>
+<p>2.在ngrok.exe根目录打开cmd执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok authtoken 授权码</span><br></pre></td></tr></table></figure>
+<p>授权码和账户是绑定的，在授权命令运行后，ngrok会将授权码保存在~/.ngrok2/ngrok.yml中，所以只需要运行一次，以后都可以使用。<br>3.执行以下代码来选择你要暴露的端口</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok http 80</span><br></pre></td></tr></table></figure>
+<p><img src="ngrok/http.png" alt><br>4.每次启动ngrok都会分配一个新的外网域名，所以需要每次更换配置或者更换访问地址，不太方便。当然，ngrok也提供了解决方法，那就是付费，可以设置固定域名。</p>
+]]></content>
+      <categories>
+        <category>服务器</category>
       </categories>
   </entry>
   <entry>
@@ -149,46 +296,6 @@
       </categories>
   </entry>
   <entry>
-    <title>前后端分离集成kaptcha</title>
-    <url>/2020/04/26/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%9B%86%E6%88%90kaptcha/</url>
-    <content><![CDATA[<p><strong>kaptcha</strong><br>Springboot集成kaptcha，前端Vue项目，实现验证码验证功能。</p>
-<a id="more"></a>
-<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;!-- 验证码--&gt;</span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;com.github.penggle&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;kaptcha&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="2-添加配置类"><a href="#2-添加配置类" class="headerlink" title="2.添加配置类"></a>2.添加配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KaptchaConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DefaultKaptcha <span class="title">producer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        properties.put(<span class="string">"kaptcha.border"</span>, <span class="string">"no"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.font.color"</span>, <span class="string">"black"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.char.space"</span>, <span class="string">"10"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.char.length"</span>,<span class="string">"4"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.image.height"</span>,<span class="string">"34"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.font.size"</span>,<span class="string">"25"</span>);</span><br><span class="line"></span><br><span class="line">        properties.put(<span class="string">"kaptcha.noise.impl"</span>,<span class="string">"com.google.code.kaptcha.impl.NoNoise"</span>);</span><br><span class="line">        Config config = <span class="keyword">new</span> Config(properties);</span><br><span class="line">        DefaultKaptcha defaultKaptcha = <span class="keyword">new</span> DefaultKaptcha();</span><br><span class="line">        defaultKaptcha.setConfig(config);</span><br><span class="line">        <span class="keyword">return</span> defaultKaptcha;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-验证码生成接口"><a href="#3-验证码生成接口" class="headerlink" title="3.验证码生成接口"></a>3.验证码生成接口</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line">   <span class="keyword">private</span> DefaultKaptcha producer;</span><br><span class="line">   <span class="meta">@PostMapping</span>(<span class="string">"/captcha"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> Result <span class="title">captcha</span><span class="params">()</span><span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * 后端生成图片 验证码字符串 uuid</span></span><br><span class="line"><span class="comment">        * uuid为key  验证码字符串为value</span></span><br><span class="line"><span class="comment">        * 传递bs64图片 和uuid给前端</span></span><br><span class="line"><span class="comment">        * 前端在登录的时候 传递 账号 密码 验证码 uuid</span></span><br><span class="line"><span class="comment">        * 通过uuid获取 验证码 验证</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">       ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">       <span class="comment">//获取验证码</span></span><br><span class="line">       String text = producer.createText();</span><br><span class="line">       System.out.println(<span class="string">"登录验证码："</span>+text);</span><br><span class="line"></span><br><span class="line">       BufferedImage image = producer.createImage(text);</span><br><span class="line">       ImageIO.write(image, <span class="string">"png"</span>, out);</span><br><span class="line">       String base64bytes = Base64.encode(out.toByteArray());</span><br><span class="line"></span><br><span class="line">       <span class="comment">//该字符串传输至前端放入src即可显示图片，安卓可以去掉data:image/png;base64,</span></span><br><span class="line">       String src = <span class="string">"data:image/png;base64,"</span> + base64bytes;</span><br><span class="line">       System.out.println(<span class="string">"登录验证码："</span>+src);</span><br><span class="line">       String token = UUID.randomUUID().toString().replace(<span class="string">"-"</span>,<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">       System.out.println(<span class="string">"token:"</span>+token);</span><br><span class="line">       Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">       map.put(<span class="string">"token"</span>, token);</span><br><span class="line">       map.put(<span class="string">"img"</span>, src);</span><br><span class="line">       <span class="comment">//stringRedisTemplate.opsForValue().set(token, texttext);</span></span><br><span class="line">       redis.put(token,text);</span><br><span class="line">       <span class="keyword">return</span> Result.success(map);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-登录接口"><a href="#4-登录接口" class="headerlink" title="4.登录接口"></a>4.登录接口</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,String&gt; redis = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">userLogin</span><span class="params">(@RequestBody Map map)</span></span>&#123;</span><br><span class="line">        <span class="comment">//后台验证码</span></span><br><span class="line">       <span class="comment">// String text = String.valueOf(map.get("text"));</span></span><br><span class="line">        String text = redis.get(String.valueOf(map.get(<span class="string">"token"</span>)));</span><br><span class="line">        <span class="comment">//输入的验证码</span></span><br><span class="line">        String yzm = String.valueOf(map.get(<span class="string">"yzm"</span>));</span><br><span class="line">        <span class="keyword">if</span>(yzm.equals(text))&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-前端页面"><a href="#5-前端页面" class="headerlink" title="5.前端页面"></a>5.前端页面</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;!--图片显示--&gt;</span><br><span class="line">&lt;img :src&#x3D;&quot;this.token1.img&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">mounted()&#123;</span><br><span class="line">        this.getToken();</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">			&#x2F;&#x2F;获取验证信息</span><br><span class="line">            async getToken() &#123;</span><br><span class="line">                    let getData &#x3D; await this.$net.Post(&#123;</span><br><span class="line">                        url: config.getToken,</span><br><span class="line">                        </span><br><span class="line">                    &#125;);</span><br><span class="line">                    if (getData.code &#x3D;&#x3D; 200) &#123;</span><br><span class="line">                       this.token1 &#x3D; getData.data</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="5-显示效果"><a href="#5-显示效果" class="headerlink" title="5.显示效果"></a>5.显示效果</h2><p><img src="/2020/04/26/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%9B%86%E6%88%90kaptcha/%E9%AA%8C%E8%AF%81%E7%A0%81.png" alt></p>
-]]></content>
-      <categories>
-        <category>Springboot</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Ngroc</title>
-    <url>/2021/06/30/ngrok/</url>
-    <content><![CDATA[<h1 id="Ngrok实现内网穿透"><a href="#Ngrok实现内网穿透" class="headerlink" title="Ngrok实现内网穿透"></a>Ngrok实现内网穿透</h1><hr>
-<p><strong>前言</strong>：一直在开发Web项目，但都是在本地运行能跑起来,一直都想把运行的项目能够在手机上能看见（不是一个局域网中也能看见），因为我只是想来做个测试，不想购买服务器和域名，也不想配置，如果我的电脑能作为服务端，有开发环境，又有tomcat，数据库等等，如果能够直接将开发用的电脑的这个内网的IP映射到公网多好啊。于是就了解到了要用到内网穿透，内网穿透就会用到Ngrok,而且是免费的。</p>
-<a id="more"></a>
-<ul>
-<li><strong>内网穿透</strong><br>　　内网穿透其作用，简而言之就是将内网IP映射成对外可访问的域名。（这里要是不知道为什么需要暴露在公网上，就需要复习一下网络方面的知识了，例如网络七层协议。还有IP和域名这些网络方面的知识。这个说来就话长了）Ngrok可以理解为内网穿透工具。</li>
-</ul>
-<h2 id="Ngroc具体使用流程"><a href="#Ngroc具体使用流程" class="headerlink" title="Ngroc具体使用流程"></a>Ngroc具体使用流程</h2><p>1.因为开发环境是windows操作系统,安装windows版本的ngroc，从官网<a href="https://ngrok.com/" target="_blank" rel="noopener" title="ngrok官网">https://ngrok.com/  </a>  下载，注册并获取密钥</p>
-<p><img src="/2021/06/30/ngrok/%E5%AF%86%E9%92%A5.png" alt></p>
-<p>2.在ngrok.exe根目录打开cmd执行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok authtoken 授权码</span><br></pre></td></tr></table></figure>
-<p>授权码和账户是绑定的，在授权命令运行后，ngrok会将授权码保存在~/.ngrok2/ngrok.yml中，所以只需要运行一次，以后都可以使用。<br>3.执行以下代码来选择你要暴露的端口</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ngrok http 80</span><br></pre></td></tr></table></figure>
-<p><img src="ngrok/http.png" alt><br>4.每次启动ngrok都会分配一个新的外网域名，所以需要每次更换配置或者更换访问地址，不太方便。当然，ngrok也提供了解决方法，那就是付费，可以设置固定域名。</p>
-]]></content>
-      <categories>
-        <category>服务器</category>
-      </categories>
-  </entry>
-  <entry>
     <title>微信模板消息接口</title>
     <url>/2020/05/25/%E5%BE%AE%E4%BF%A1%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3/</url>
     <content><![CDATA[<p><strong>微信模板消息接口</strong><br>调用微信模板消息接口</p>
@@ -209,6 +316,50 @@
 ]]></content>
       <categories>
         <category>微信</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>vue条形码生成插</title>
+    <url>/2020/05/12/vue%E6%9D%A1%E5%BD%A2%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92/</url>
+    <content><![CDATA[<p><strong>vue插件动态生成条形码</strong></p>
+<a id="more"></a>
+<h1 id="1-安装组件"><a href="#1-安装组件" class="headerlink" title="1.安装组件"></a>1.安装组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install @xkeshi&#x2F;vue-barcode vue</span><br></pre></td></tr></table></figure>
+<h1 id="2-main-js中引入注册组件"><a href="#2-main-js中引入注册组件" class="headerlink" title="2.main.js中引入注册组件"></a>2.main.js中引入注册组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;条形码</span><br><span class="line">import VueBarcode from &#39;@xkeshi&#x2F;vue-barcode&#39;;</span><br><span class="line">Vue.component(&#39;barcode&#39;, VueBarcode);</span><br></pre></td></tr></table></figure>
+<h1 id="3-使用组件"><a href="#3-使用组件" class="headerlink" title="3.使用组件"></a>3.使用组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;barcode</span><br><span class="line">	:value&#x3D;&quot;list.examineNumber&quot;</span><br><span class="line">	:options&#x3D;&quot;&#123; height:&#39;100px&#39;,</span><br><span class="line">	width:&#39;3px&#39;,</span><br><span class="line">	fontSize: &#39;30px&#39;,</span><br><span class="line">	background:&#39;transparent&#39;&#125;&quot;&gt;</span><br><span class="line">&lt;&#x2F;barcode&gt;</span><br></pre></td></tr></table></figure>
+<p>#4.效果</p>
+<p> <img src="/2020/05/12/vue%E6%9D%A1%E5%BD%A2%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92/%E6%9D%A1%E5%BD%A2%E7%A0%81.png" alt></p>
+]]></content>
+      <categories>
+        <category>Vue</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>前后端分离集成kaptcha</title>
+    <url>/2020/04/26/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%9B%86%E6%88%90kaptcha/</url>
+    <content><![CDATA[<p><strong>kaptcha</strong><br>Springboot集成kaptcha，前端Vue项目，实现验证码验证功能。</p>
+<a id="more"></a>
+<h2 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1.添加依赖"></a>1.添加依赖</h2><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;!-- 验证码--&gt;</span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;com.github.penggle&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;kaptcha&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;2.3.2&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="2-添加配置类"><a href="#2-添加配置类" class="headerlink" title="2.添加配置类"></a>2.添加配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KaptchaConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DefaultKaptcha <span class="title">producer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        properties.put(<span class="string">"kaptcha.border"</span>, <span class="string">"no"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.font.color"</span>, <span class="string">"black"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.char.space"</span>, <span class="string">"10"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.char.length"</span>,<span class="string">"4"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.image.height"</span>,<span class="string">"34"</span>);</span><br><span class="line">        properties.put(<span class="string">"kaptcha.textproducer.font.size"</span>,<span class="string">"25"</span>);</span><br><span class="line"></span><br><span class="line">        properties.put(<span class="string">"kaptcha.noise.impl"</span>,<span class="string">"com.google.code.kaptcha.impl.NoNoise"</span>);</span><br><span class="line">        Config config = <span class="keyword">new</span> Config(properties);</span><br><span class="line">        DefaultKaptcha defaultKaptcha = <span class="keyword">new</span> DefaultKaptcha();</span><br><span class="line">        defaultKaptcha.setConfig(config);</span><br><span class="line">        <span class="keyword">return</span> defaultKaptcha;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-验证码生成接口"><a href="#3-验证码生成接口" class="headerlink" title="3.验证码生成接口"></a>3.验证码生成接口</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line">   <span class="keyword">private</span> DefaultKaptcha producer;</span><br><span class="line">   <span class="meta">@PostMapping</span>(<span class="string">"/captcha"</span>)</span><br><span class="line">   <span class="function"><span class="keyword">public</span> Result <span class="title">captcha</span><span class="params">()</span><span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * 后端生成图片 验证码字符串 uuid</span></span><br><span class="line"><span class="comment">        * uuid为key  验证码字符串为value</span></span><br><span class="line"><span class="comment">        * 传递bs64图片 和uuid给前端</span></span><br><span class="line"><span class="comment">        * 前端在登录的时候 传递 账号 密码 验证码 uuid</span></span><br><span class="line"><span class="comment">        * 通过uuid获取 验证码 验证</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">       ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">       <span class="comment">//获取验证码</span></span><br><span class="line">       String text = producer.createText();</span><br><span class="line">       System.out.println(<span class="string">"登录验证码："</span>+text);</span><br><span class="line"></span><br><span class="line">       BufferedImage image = producer.createImage(text);</span><br><span class="line">       ImageIO.write(image, <span class="string">"png"</span>, out);</span><br><span class="line">       String base64bytes = Base64.encode(out.toByteArray());</span><br><span class="line"></span><br><span class="line">       <span class="comment">//该字符串传输至前端放入src即可显示图片，安卓可以去掉data:image/png;base64,</span></span><br><span class="line">       String src = <span class="string">"data:image/png;base64,"</span> + base64bytes;</span><br><span class="line">       System.out.println(<span class="string">"登录验证码："</span>+src);</span><br><span class="line">       String token = UUID.randomUUID().toString().replace(<span class="string">"-"</span>,<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">       System.out.println(<span class="string">"token:"</span>+token);</span><br><span class="line">       Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">2</span>);</span><br><span class="line">       map.put(<span class="string">"token"</span>, token);</span><br><span class="line">       map.put(<span class="string">"img"</span>, src);</span><br><span class="line">       <span class="comment">//stringRedisTemplate.opsForValue().set(token, texttext);</span></span><br><span class="line">       redis.put(token,text);</span><br><span class="line">       <span class="keyword">return</span> Result.success(map);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-登录接口"><a href="#4-登录接口" class="headerlink" title="4.登录接口"></a>4.登录接口</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,String&gt; redis = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">userLogin</span><span class="params">(@RequestBody Map map)</span></span>&#123;</span><br><span class="line">        <span class="comment">//后台验证码</span></span><br><span class="line">       <span class="comment">// String text = String.valueOf(map.get("text"));</span></span><br><span class="line">        String text = redis.get(String.valueOf(map.get(<span class="string">"token"</span>)));</span><br><span class="line">        <span class="comment">//输入的验证码</span></span><br><span class="line">        String yzm = String.valueOf(map.get(<span class="string">"yzm"</span>));</span><br><span class="line">        <span class="keyword">if</span>(yzm.equals(text))&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-前端页面"><a href="#5-前端页面" class="headerlink" title="5.前端页面"></a>5.前端页面</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;!--图片显示--&gt;</span><br><span class="line">&lt;img :src&#x3D;&quot;this.token1.img&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">mounted()&#123;</span><br><span class="line">        this.getToken();</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">			&#x2F;&#x2F;获取验证信息</span><br><span class="line">            async getToken() &#123;</span><br><span class="line">                    let getData &#x3D; await this.$net.Post(&#123;</span><br><span class="line">                        url: config.getToken,</span><br><span class="line">                        </span><br><span class="line">                    &#125;);</span><br><span class="line">                    if (getData.code &#x3D;&#x3D; 200) &#123;</span><br><span class="line">                       this.token1 &#x3D; getData.data</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="5-显示效果"><a href="#5-显示效果" class="headerlink" title="5.显示效果"></a>5.显示效果</h2><p><img src="/2020/04/26/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%9B%86%E6%88%90kaptcha/%E9%AA%8C%E8%AF%81%E7%A0%81.png" alt></p>
+]]></content>
+      <categories>
+        <category>Springboot</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>vue带参数路由跳转</title>
+    <url>/2020/04/21/vue%E5%B8%A6%E5%8F%82%E6%95%B0%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC/</url>
+    <content><![CDATA[<p><strong>vue带参数路由跳转</strong></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">async getDeptById(e) &#123;</span><br><span class="line">           console.log(e)</span><br><span class="line">           try &#123;</span><br><span class="line">               let returnData &#x3D; await this.$net.post(&#123;</span><br><span class="line">                   url: this.$url.hosApi.getDeptById,</span><br><span class="line">                   data: &#123;id:e&#125;</span><br><span class="line">               &#125;);</span><br><span class="line">               if (returnData.code &#x3D;&#x3D; 200) &#123;</span><br><span class="line">                   this.$router.push(&#123;</span><br><span class="line">                   name: &#39;HosDepartmentDetail&#39;,</span><br><span class="line">                   params: returnData.data </span><br><span class="line">               &#125;)   </span><br><span class="line">               &#125;</span><br><span class="line">           &#125; catch (e) &#123;</span><br><span class="line">               </span><br><span class="line">           &#125;</span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Vue</category>
       </categories>
   </entry>
   <entry>
@@ -279,150 +430,86 @@
       </categories>
   </entry>
   <entry>
-    <title>vue带参数路由跳转</title>
-    <url>/2020/04/21/vue%E5%B8%A6%E5%8F%82%E6%95%B0%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC/</url>
-    <content><![CDATA[<p><strong>vue带参数路由跳转</strong></p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">async getDeptById(e) &#123;</span><br><span class="line">           console.log(e)</span><br><span class="line">           try &#123;</span><br><span class="line">               let returnData &#x3D; await this.$net.post(&#123;</span><br><span class="line">                   url: this.$url.hosApi.getDeptById,</span><br><span class="line">                   data: &#123;id:e&#125;</span><br><span class="line">               &#125;);</span><br><span class="line">               if (returnData.code &#x3D;&#x3D; 200) &#123;</span><br><span class="line">                   this.$router.push(&#123;</span><br><span class="line">                   name: &#39;HosDepartmentDetail&#39;,</span><br><span class="line">                   params: returnData.data </span><br><span class="line">               &#125;)   </span><br><span class="line">               &#125;</span><br><span class="line">           &#125; catch (e) &#123;</span><br><span class="line">               </span><br><span class="line">           &#125;</span><br><span class="line">       &#125;,</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>redis</title>
-    <url>/2021/06/30/redis/</url>
-    <content><![CDATA[<p> <strong>Redis的安装</strong> </p>
-<hr>
-<a id="more"></a>
-<h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h4><blockquote>
-<p>wget -P /root/softdev <a href="http://download.redis.io/releases/redis-5.0.5.tar.gz" target="_blank" rel="noopener">http://download.redis.io/releases/redis-5.0.5.tar.gz</a></p>
+    <title>elasticsearch</title>
+    <url>/2021/08/18/es%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="ElasticSearch学习"><a href="#ElasticSearch学习" class="headerlink" title="ElasticSearch学习"></a>ElasticSearch学习</h1><a id="more"></a>
+
+<h2 id="1-基本认识"><a href="#1-基本认识" class="headerlink" title="1.基本认识"></a>1.基本认识</h2><p>es默认端口9200   kibana默认端口5601 </p>
+<p>实现核心原理—倒排索引</p>
+<blockquote>
+<p>可以理解为根据分词器中的内容查询id,再根据id得到完整数据</p>
 </blockquote>
-<h4 id="2-解压"><a href="#2-解压" class="headerlink" title="2.解压"></a>2.解压</h4><blockquote>
-<p>tar zxvf redis-5.0.5.tar.gz -C /root/redis</p>
-</blockquote>
-<h4 id="3-安装C语言环境"><a href="#3-安装C语言环境" class="headerlink" title="3.安装C语言环境"></a>3.安装C语言环境</h4><blockquote>
-<p>yum install gcc-c++</p>
-</blockquote>
-<h4 id="4-切换到redis安装目录下-执行"><a href="#4-切换到redis安装目录下-执行" class="headerlink" title="4.切换到redis安装目录下.执行"></a>4.切换到redis安装目录下.执行</h4><blockquote>
-<p>make</p>
-</blockquote>
-<p><img src="/2021/06/30/redis/1.png" alt></p>
-<h4 id="5-修改配置文件redis-conf"><a href="#5-修改配置文件redis-conf" class="headerlink" title="5.修改配置文件redis.conf"></a>5.修改配置文件redis.conf</h4><ul>
-<li>将daemonize后面的no改为yes,意为后台运行的意思</li>
-</ul>
-<p><img src="/2021/06/30/redis/2.png" alt></p>
+<p> Shard(分片):单台机器无法存储大量数据，ElasticSearch可以将一个索引中的数据切分为多个Shard，分布在多台服务器上存储。有了Shard就可以横向扩展，存储更多数据，让搜索和分析等操作分布到多台服务器上去执行，提升吞吐量和性能。</p>
+<p> Replicas(副本):服务器随时可能故障或宕机，此时Shard可能就会丢失，因此可以为每个Shard创建多个Replica副本。Replica可以在Shard故障时提供备用服务，保证数据不丢失，多个Replica还可以提升搜索操作的吞吐量和性能。</p>
+<h2 id="2-软件安装"><a href="#2-软件安装" class="headerlink" title="2.软件安装"></a>2.软件安装</h2><p><strong>2.1安装es&amp;kibana</strong></p>
+<p>1.利用docker安装es和kibana</p>
+<p>2.ik分词器两个属性</p>
 <ul>
-<li>将requirepass前面的#号去掉,开启密码验证,然后后面是我设置的密码</li>
+<li>ik_max_word:<br>会将文本做最细粒度的拆分；尽可能多的拆分出词语<br>用他其实就是可以进行最大程度的模糊查询</li>
+<li>ik_smart:<br>会做最粗粒度的拆分；已被分出的词语将不会再次被其它词语占有<br>用它其实就是进行精确查找</li>
+<li>eg:</li>
 </ul>
-<p><img src="/2021/06/30/redis/3.png" alt>　</p>
-<ul>
-<li>允许其他ip地址访问</li>
-</ul>
-<p><img src="/2021/06/30/redis/4.png" alt></p>
-<h4 id="6-redis命令"><a href="#6-redis命令" class="headerlink" title="6.redis命令"></a>6.redis命令</h4><ul>
-<li>启动：</li>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">GET _analyze </span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"analyzer"</span>: <span class="string">"ik_smart"</span>, </span><br><span class="line">  <span class="attr">"text"</span>: <span class="string">"我随便乱写的试一试"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-ES数据结构"><a href="#3-ES数据结构" class="headerlink" title="3.ES数据结构"></a>3.ES数据结构</h2><p>在 7.0 以及之后的版本中 Type 被废弃了。一个 index 中只有一个默认的 type，即_doc。</p>
+<p>index ,包含多个document包含多个filed,我的理解就是如下：<br>最外层大括号就是index，其中的{ }就是document(可以多个且其中的filed可以不同),{}中的age和name就是filed（也可以是多个）</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;&#123;"age":"17","name":"zs"&#125;,&#123;"age":"23","name":"ls"&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-kinaba对es基本操作"><a href="#4-kinaba对es基本操作" class="headerlink" title="4.kinaba对es基本操作"></a>4.kinaba对es基本操作</h2><ul>
+<li>es官方操作手册</li>
 </ul>
 <blockquote>
-<p>src/redis-server redis.conf</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/7.14/docs-get.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elasticsearch/reference/7.14/docs-get.html</a></p>
 </blockquote>
 <ul>
-<li>查看进程</li>
+<li>基于es7的操作</li>
 </ul>
-<blockquote>
-<p>ps aux |grep redis</p>
-</blockquote>
-<p> <img src="/2021/06/30/redis/5.png" alt></p>
-<ul>
-<li>关闭redis</li>
-</ul>
-<blockquote>
-<p> kill -9 redis端口号</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>中间件</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>vue条形码生成插</title>
-    <url>/2020/05/12/vue%E6%9D%A1%E5%BD%A2%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92/</url>
-    <content><![CDATA[<p><strong>vue插件动态生成条形码</strong></p>
-<a id="more"></a>
-<h1 id="1-安装组件"><a href="#1-安装组件" class="headerlink" title="1.安装组件"></a>1.安装组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install @xkeshi&#x2F;vue-barcode vue</span><br></pre></td></tr></table></figure>
-<h1 id="2-main-js中引入注册组件"><a href="#2-main-js中引入注册组件" class="headerlink" title="2.main.js中引入注册组件"></a>2.main.js中引入注册组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;条形码</span><br><span class="line">import VueBarcode from &#39;@xkeshi&#x2F;vue-barcode&#39;;</span><br><span class="line">Vue.component(&#39;barcode&#39;, VueBarcode);</span><br></pre></td></tr></table></figure>
-<h1 id="3-使用组件"><a href="#3-使用组件" class="headerlink" title="3.使用组件"></a>3.使用组件</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;barcode</span><br><span class="line">	:value&#x3D;&quot;list.examineNumber&quot;</span><br><span class="line">	:options&#x3D;&quot;&#123; height:&#39;100px&#39;,</span><br><span class="line">	width:&#39;3px&#39;,</span><br><span class="line">	fontSize: &#39;30px&#39;,</span><br><span class="line">	background:&#39;transparent&#39;&#125;&quot;&gt;</span><br><span class="line">&lt;&#x2F;barcode&gt;</span><br></pre></td></tr></table></figure>
-<p>#4.效果</p>
-<p> <img src="/2020/05/12/vue%E6%9D%A1%E5%BD%A2%E7%A0%81%E7%94%9F%E6%88%90%E6%8F%92/%E6%9D%A1%E5%BD%A2%E7%A0%81.png" alt></p>
-]]></content>
-      <categories>
-        <category>Vue</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>RocketMQ</title>
-    <url>/2022/03/18/RocketMQ/</url>
-    <content><![CDATA[<p><strong>RocketMQ</strong></p>
-<a id="more"></a>
+<p><strong>对索引的操作</strong></p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">1.增</span><br><span class="line">#创建索引</span><br><span class="line">PUT /myindex</span><br><span class="line">2.删</span><br><span class="line">#删除整个索引</span><br><span class="line">DELETE /myindex</span><br><span class="line">#删除所有索引</span><br><span class="line">DELETE /＊</span><br><span class="line">3.查</span><br><span class="line">#查询多个索引</span><br><span class="line">POST /myindex,myindex2,myindex3/_search</span><br><span class="line">#查询映射</span><br><span class="line">GET /myindex/_mapping</span><br><span class="line">#查询索引文档个数</span><br><span class="line">GET /myindex/_count</span><br><span class="line">#查询所有的索引</span><br><span class="line">GET /_cat/indices</span><br><span class="line">#查询索引状态</span><br><span class="line">GET /_cluster/health</span><br></pre></td></tr></table></figure>
 
-<h2 id="1-启动nameserver"><a href="#1-启动nameserver" class="headerlink" title="1.启动nameserver"></a>1.启动nameserver</h2><p>本地安装mq4.7.0版本（客户项目中引入的客户端是4.7）</p>
-<p>docker pull foxiswho/rocketmq:4.7.0</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> docker run -d \</span><br><span class="line">--restart&#x3D;always \</span><br><span class="line">--name rmqnamesrv \</span><br><span class="line">-p 9876:9876 \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;namesrv&#x2F;logs:&#x2F;root&#x2F;logs \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;namesrv&#x2F;store:&#x2F;root&#x2F;store \</span><br><span class="line">-e &quot;MAX_POSSIBLE_HEAP&#x3D;100000000&quot; \</span><br><span class="line">foxiswho&#x2F;rocketmq:4.7.0 \</span><br><span class="line">sh mqnamesrv</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-启用broker"><a href="#2-启用broker" class="headerlink" title="2.启用broker"></a>2.启用broker</h2><p>先配置 /Users/kirito/dockerConfig/rocketMQ/conf/broker.conf   创建文件</p>
-<p>mkdir -p /Users/kirito/dockerConfig/rocketMQ/data/broker/logs  /Users/kirito/dockerConfig/rocketMQ/data/broker/store </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 所属集群名称，如果节点较多可以配置多个</span><br><span class="line">brokerClusterName &#x3D; DefaultCluster</span><br><span class="line">#broker名称，master和slave使用相同的名称，表明他们的主从关系</span><br><span class="line">brokerName &#x3D; broker-a</span><br><span class="line">#0表示Master，大于0表示不同的slave</span><br><span class="line">brokerId &#x3D; 0</span><br><span class="line">#表示几点做消息删除动作，默认是凌晨4点</span><br><span class="line">deleteWhen &#x3D; 04</span><br><span class="line">#在磁盘上保留消息的时长，单位是小时</span><br><span class="line">fileReservedTime &#x3D; 48</span><br><span class="line">#有三个值：SYNC_MASTER，ASYNC_MASTER，SLAVE；同步和异步表示Master和Slave之间同步数据的机制；</span><br><span class="line">brokerRole &#x3D; ASYNC_MASTER</span><br><span class="line">#刷盘策略，取值为：ASYNC_FLUSH，SYNC_FLUSH表示同步刷盘和异步刷盘；SYNC_FLUSH消息写入磁盘后才返回成功状态，ASYNC_FLUSH不需要；</span><br><span class="line">flushDiskType &#x3D; ASYNC_FLUSH</span><br><span class="line"># 设置broker节点所在服务器的ip地址</span><br><span class="line">brokerIP1 &#x3D; 172.18.21.156</span><br></pre></td></tr></table></figure>
-
-<p>接着启动broker</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -d  \</span><br><span class="line">--restart&#x3D;always \</span><br><span class="line">--name rmqbroker \</span><br><span class="line">--link rmqnamesrv:namesrv \</span><br><span class="line">-p 10911:10911 \</span><br><span class="line">-p 10909:10909 \</span><br><span class="line">-v  &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;broker&#x2F;logs:&#x2F;root&#x2F;logs \</span><br><span class="line">-v  &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;broker&#x2F;store:&#x2F;root&#x2F;store \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;conf&#x2F;broker.conf:&#x2F;opt&#x2F;rocketmq-4.7.0&#x2F;conf&#x2F;broker.conf \</span><br><span class="line">-e &quot;NAMESRV_ADDR&#x3D;namesrv:9876&quot; \</span><br><span class="line">-e &quot;MAX_POSSIBLE_HEAP&#x3D;200000000&quot; \</span><br><span class="line">foxiswho&#x2F;rocketmq:4.7.0 \</span><br><span class="line">sh mqbroker -c &#x2F;opt&#x2F;rocketmq-4.7.0&#x2F;conf&#x2F;broker.conf</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-启动console控制台"><a href="#3-启动console控制台" class="headerlink" title="3.启动console控制台"></a>3.启动console控制台</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -d --name rmqconsole -p 8900:8080 \</span><br><span class="line"> -e &quot;JAVA_OPTS&#x3D;-Drocketmq.namesrv.addr&#x3D;172.18.21.156:9876\</span><br><span class="line"> -Dcom.rocketmq.sendMessageWithVIPChannel&#x3D;false&quot;\</span><br><span class="line"> -t styletang&#x2F;rocketmq-console-ng</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-Spring-Boot-集成和Demo"><a href="#4-Spring-Boot-集成和Demo" class="headerlink" title="4.Spring Boot 集成和Demo"></a>4.Spring Boot 集成和Demo</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.rocketmq&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;rocketmq-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.7.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-官网Demo-Test"><a href="#5-官网Demo-Test" class="headerlink" title="5.官网Demo  Test"></a>5.官网Demo  Test</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMQ</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span> <span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 实例化消息生产者Producer</span></span><br><span class="line">        DefaultMQProducer producer = <span class="keyword">new</span> DefaultMQProducer(<span class="string">"please_rename_unique_group_name"</span>);</span><br><span class="line">        <span class="comment">// 设置NameServer的地址</span></span><br><span class="line">        producer.setNamesrvAddr(<span class="string">"localhost:9876"</span>);</span><br><span class="line">        <span class="comment">// 启动Producer实例</span></span><br><span class="line">        producer.start();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 创建消息，并指定Topic，Tag和消息体</span></span><br><span class="line">            Message msg = <span class="keyword">new</span> Message(<span class="string">"TopicTest"</span>,</span><br><span class="line">                    <span class="string">"TagA"</span> ,</span><br><span class="line">                    (<span class="string">"Hello RocketMQ "</span> + i).getBytes(RemotingHelper.DEFAULT_CHARSET) <span class="comment">/* Message body */</span></span><br><span class="line">            );</span><br><span class="line">            <span class="comment">// 发送消息到一个Broker</span></span><br><span class="line">            SendResult sendResult = producer.send(msg);</span><br><span class="line">            <span class="comment">// 通过sendResult返回消息是否成功送达</span></span><br><span class="line">            System.out.printf(<span class="string">"%s%n"</span>, sendResult);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果不再发送消息，关闭Producer实例。</span></span><br><span class="line">        producer.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2022/03/18/RocketMQ/image-20220321174202142.png" alt="image-20220321174202142"></p>
-<p>rocket源码地址： <a href="https://github.com/apache/rocketmq" target="_blank" rel="noopener">https://github.com/apache/rocketmq</a></p>
-<h2 id="6-消息队列原理理解"><a href="#6-消息队列原理理解" class="headerlink" title="6.消息队列原理理解"></a>6.消息队列原理理解</h2><ul>
-<li><p>保证消息不丢失</p>
-<p>生产者 ←→broker ←→消费者</p>
-<p>消息丢失会发生在三者交互的过程中</p>
-<p>1.生产者到broker：</p>
-<p>​        消息发送成功或者失败要打印消息日志，务必要打印SendResult和key字段。send消息方法只要不抛异常，就代表发送成功。发送成功会有多个状态，在sendResult里定义。</p>
-<p>2.broker存储消息：</p>
-<p>​        单机情况下是消息刷盘后返回响应，集群多副本情况下，即发送至两个副本及以上的情况下再返回响应r`</p>
-<p>3.消费者消费就丢失</p>
-<p>​        需要在执行完真正的业务逻辑之后再返回响应给<code>Broker</code></p>
+<p> <strong>对文档的操作</strong></p>
+<ol>
+<li><p>增加数据</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">#创建索引并添加数据</span><br><span class="line">PUT /myindex/_doc/2</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>:<span class="string">"zxs2"</span>,</span><br><span class="line">  <span class="attr">"age"</span>:<span class="number">212</span>,</span><br><span class="line">  <span class="attr">"email"</span>:<span class="string">"1232@qq.com"</span>,</span><br><span class="line">  <span class="attr">"company"</span>:<span class="string">"llll2"</span></span><br><span class="line">&#125;</span><br><span class="line">#批量新增，修改，删除</span><br><span class="line">POST _bulk</span><br><span class="line">&#123;<span class="attr">"index"</span>:&#123;<span class="attr">"_index"</span>:<span class="string">"myindex"</span>,<span class="attr">"_id"</span>:<span class="string">"1"</span>&#125;&#125;</span><br><span class="line">&#123; <span class="attr">"addfiled"</span> : <span class="string">"test1"</span>,<span class="attr">"addfiled2"</span> :<span class="string">"test2"</span>,<span class="attr">"addfiled3"</span>:<span class="number">3</span>&#125;</span><br><span class="line">&#123; <span class="attr">"update"</span> : &#123;<span class="attr">"_id"</span> : <span class="string">"1"</span>, <span class="attr">"_index"</span> : <span class="string">"myindex"</span>&#125; &#125;</span><br><span class="line">&#123; <span class="attr">"doc"</span> : &#123;<span class="attr">"addfiled2"</span> : <span class="string">"update2"</span>&#125; &#125;</span><br><span class="line">&#123; <span class="attr">"update"</span> : &#123;<span class="attr">"_id"</span> : <span class="string">"1"</span>, <span class="attr">"_index"</span> : <span class="string">"myindex2"</span>&#125; &#125;</span><br><span class="line">&#123; <span class="attr">"doc"</span> : &#123;<span class="attr">"addfiled3"</span> : <span class="number">3</span>&#125; &#125;</span><br><span class="line"><span class="comment">/**其中index方式的新增可再次执行相同id的文档，让version+1，因为他是删除再重新新增，而create方式再次新增相同id文档时，会报错，因为id存在**/</span></span><br><span class="line">#批量删除</span><br><span class="line">POST _bulk</span><br><span class="line">&#123;<span class="attr">"delete"</span>:&#123;<span class="attr">"_index"</span>:<span class="string">"myindex"</span>,<span class="attr">"_id"</span>:<span class="string">"4"</span>&#125;&#125;</span><br><span class="line">&#123;<span class="attr">"delete"</span>:&#123;<span class="attr">"_index"</span>:<span class="string">"myindex"</span>,<span class="attr">"_id"</span>:<span class="string">"4"</span>&#125;&#125;</span><br><span class="line">&#123;<span class="attr">"delete"</span>:&#123;<span class="attr">"_index"</span>:<span class="string">"myindex"</span>,<span class="attr">"_id"</span>:<span class="string">"14"</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>消息重复</p>
-<p>因为网络传输等等故障，确认信息没有传送到消息队列，导致消息队列不知道自己已经消费过该消息了，再次将消息分发给其他的消费者。消费者保证消息幂等性就可以避免，例如利用唯一标识来确认是否消费过消息，新增客服消息时只要表中存在这个客服的唯一码就不再消费消息</p>
+<li><p>删除数据</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">#删除某个文档</span><br><span class="line">DELETE /myindex/_doc/3</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>消息重试</p>
-<p>消费异常设置失败多少次就返回成功并打印日志。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                logger.error(String.format(<span class="string">"Handle New Message Exception-currentThreadName=%s-[topic=%s, tags=%s, msgId=%s, brokerName=%s, queueId=%s, queueOffset=%s, storeTimestamp=%s, reconsumeTimes=%s, msgBody=%s]"</span>,</span><br><span class="line">                        Thread.currentThread().getName(), msg.getTopic(), msg.getTags(), msg.getMsgId(), msg.getBrokerName(), msg.getQueueId(), msg.getQueueOffset(),</span><br><span class="line">                        msg.getStoreTimestamp(), msg.getReconsumeTimes(), msgBody), e);</span><br><span class="line">                <span class="comment">// 消息重新消费3次</span></span><br><span class="line">                <span class="keyword">if</span> (msg.getReconsumeTimes() &gt;= Constants.MAX_RETRY_TIMES) &#123;</span><br><span class="line">                    <span class="keyword">return</span> ConsumeOrderlyStatus.SUCCESS;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
-
-
+<li><p>修改数据</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">#覆盖式修改</span><br><span class="line">PUT /myindex/_doc/2</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>:<span class="string">"zxs2"</span>,</span><br><span class="line">  <span class="attr">"age"</span>:<span class="number">212</span>,</span><br><span class="line">  <span class="attr">"email"</span>:<span class="string">"1232@qq.com"</span>,</span><br><span class="line">  <span class="attr">"company"</span>:<span class="string">"llll2"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#基于doc修改</span><br><span class="line">POST /myindex/_update/2</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"doc"</span>: &#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"张三"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询数据</p>
+<ol>
+<li>索引</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li><p>高级查询</p>
+<ul>
+<li>查找精确值：term</li>
+<li>多个精确值查找：terms</li>
+<li>组合过滤器： bool{ must should must_not}</li>
+<li>范围：range{gt lt gte lte}</li>
+<li>多词查询：match </li>
+<li>提高权重：boost</li>
+</ul>
+</li>
+<li></li>
+</ol>
+<h2 id="5-java实现es基本crud"><a href="#5-java实现es基本crud" class="headerlink" title="5.java实现es基本crud"></a>5.java实现es基本crud</h2><ol>
+<li><p>引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hutool.version</span>&gt;</span>5.7.19<span class="tag">&lt;/<span class="name">hutool.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">es.version</span>&gt;</span>7.14.1<span class="tag">&lt;/<span class="name">es.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span> </span><br><span class="line">      </span><br><span class="line"><span class="comment">&lt;!-- Java High Level REST Client --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.elasticsearch<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>elasticsearch<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;es.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.elasticsearch.client<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>elasticsearch-rest-high-level-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;es.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
 
 </li>
-</ul>
-<p><strong>复制策略</strong></p>
-<p>复制策略是Broker的Master与Slave间的数据同步方式。分为同步复制与异步复制：</p>
-<ul>
-<li>同步复制：消息写入master后，master会等待slave同步数据成功后才向producer返回成功ACK</li>
-<li>异步复制：消息写入master后，master立即向producer返回成功ACK，无需等待slave同步数据成功</li>
-</ul>
-<blockquote>
-<p>异步复制策略会降低系统的写入延迟，RT变小，提高了系统的吞吐量</p>
-</blockquote>
-<p><strong>刷盘策略</strong></p>
-<p>PageCache高速页缓存：Linux系统自带的一块缓存区，是Linux对文件的缓存，用于加速对文件的读写。Linux会将一部分内存作为PageCache。</p>
-<p>同步刷盘：消息被写入PageCache后立即刷盘，只有当消息被持久化到磁盘后才会响应ACK。</p>
-<p>异步刷盘：消息在被写入PageCache后就会响应ACK，当PageCache里的消息积累到一定量后，由OS线程将PageCache里的消息刷入磁盘。注：如果RocketMQ服务挂了，PageCache里的消息并不会丢失，因为PageCache是属于Linux系统的缓冲区，只有当服务器突然断电才会导致消息丢失。</p>
-<p>异步刷盘+缓冲区：RocketMQ将一部分内存当做缓冲区，消息被写入内存缓冲区后就返回ACK，由后台程序将内存缓冲区里的消息刷入磁盘。注：在该模式下，RocketMQ服务宕机或服务器突然断电都会导致消息丢失。</p>
-<p>同步刷盘：最可靠，性能低<br>异步刷盘：较为可靠，性能较高<br>异步刷盘+缓冲区：不太可靠，性能最高</p>
-]]></content>
+</ol>
+<pre><code><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">@<span class="title">SpringBootTest</span></span></span><br><span class="line"><span class="class"><span class="title">public</span> <span class="title">class</span> <span class="title">TestEs</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RestHighLevelClient client;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span>  <span class="title">putIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        Apple apple = <span class="keyword">new</span> Apple(<span class="number">1</span>, <span class="string">"color"</span>, <span class="number">22</span>, <span class="string">"chengdu"</span>);</span><br><span class="line">        String s = JSONUtil.toJsonStr(apple);</span><br><span class="line">        IndexRequest request = <span class="keyword">new</span> IndexRequest(<span class="string">"myindex"</span>).id(apple.getId().toString());</span><br><span class="line">        request.source(s, XContentType.JSON);</span><br><span class="line">        IndexResponse response = client.index(request, RequestOptions.DEFAULT);</span><br><span class="line">        System.out.println(response.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">updateDoc</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">16</span>);</span><br><span class="line">        map.put(<span class="string">"color"</span>, <span class="string">"red"</span>);</span><br><span class="line">        UpdateRequest request = <span class="keyword">new</span> UpdateRequest(<span class="string">"myindex"</span>, <span class="string">"1"</span>);</span><br><span class="line">        request.doc(map);</span><br><span class="line">        UpdateResponse response = client.update(request, RequestOptions.DEFAULT);</span><br><span class="line">        System.out.println(response.toString());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">delDoc</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        DeleteRequest request = <span class="keyword">new</span> DeleteRequest(<span class="string">"myindex"</span>, <span class="string">"1"</span>);</span><br><span class="line">        DeleteResponse delete = client.delete(request, RequestOptions.DEFAULT);</span><br><span class="line">        System.out.println(delete.getResult());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SearchTermDoc</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        SearchRequest request = <span class="keyword">new</span> SearchRequest(<span class="string">"myindex"</span>);</span><br><span class="line">        SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">        builder.from(<span class="number">0</span>);</span><br><span class="line">        builder.size(<span class="number">5</span>);</span><br><span class="line">        builder.query(QueryBuilders.termQuery(<span class="string">"age"</span>, <span class="string">"27"</span>));</span><br><span class="line">        request.source(builder);</span><br><span class="line">        SearchResponse response = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line">        SearchHit[] hits = response.getHits().getHits();</span><br><span class="line">        <span class="keyword">for</span> (SearchHit hit : hits) &#123;</span><br><span class="line">            Map&lt;String, Object&gt; source = hit.getSourceAsMap();</span><br><span class="line">            System.out.println(source);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SearchTermsDoc</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        SearchRequest request = <span class="keyword">new</span> SearchRequest(<span class="string">"myindex"</span>);</span><br><span class="line">        SearchSourceBuilder builder = <span class="keyword">new</span> SearchSourceBuilder();</span><br><span class="line">        builder.from(<span class="number">0</span>);</span><br><span class="line">        builder.size(<span class="number">5</span>);</span><br><span class="line">        builder.query(QueryBuilders.termsQuery(<span class="string">"name.keyword"</span>, <span class="string">"27"</span>,<span class="string">"张三"</span>,<span class="string">"李四三"</span>));</span><br><span class="line">        request.source(builder);</span><br><span class="line">        SearchResponse response = client.search(request, RequestOptions.DEFAULT);</span><br><span class="line">        SearchHit[] hits = response.getHits().getHits();</span><br><span class="line">        <span class="keyword">for</span> (SearchHit hit : hits) &#123;</span><br><span class="line">            Map&lt;String, Object&gt; source = hit.getSourceAsMap();</span><br><span class="line">            System.out.println(source);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>]]></content>
       <categories>
         <category>中间件</category>
       </categories>
