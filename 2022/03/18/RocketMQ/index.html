@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://Kiritoyang.github.io').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="RocketMQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RocketMQ">
+<meta property="og:url" content="https://kiritoyang.github.io/2022/03/18/RocketMQ/index.html">
+<meta property="og:site_name" content="Kiritoyang">
+<meta property="og:description" content="RocketMQ">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://kiritoyang.github.io/2022/03/18/RocketMQ/image-20220321174202142.png">
+<meta property="article:published_time" content="2022-03-18T07:16:52.514Z">
+<meta property="article:modified_time" content="2023-03-15T08:53:09.437Z">
+<meta property="article:author" content="Kiritoyang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kiritoyang.github.io/2022/03/18/RocketMQ/image-20220321174202142.png">
+
+<link rel="canonical" href="https://kiritoyang.github.io/2022/03/18/RocketMQ/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>RocketMQ | Kiritoyang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kiritoyang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://kiritoyang.github.io/2022/03/18/RocketMQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Kiritoyang">
+      <meta itemprop="description" content="天道酬勤">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kiritoyang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RocketMQ
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-18 15:16:52" itemprop="dateCreated datePublished" datetime="2022-03-18T15:16:52+08:00">2022-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-15 16:53:09" itemprop="dateModified" datetime="2023-03-15T16:53:09+08:00">2023-03-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/03/18/RocketMQ/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/03/18/RocketMQ/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+		
+		
+      
+        <p><strong>RocketMQ</strong></p>
+<a id="more"></a>
+
+<h2 id="1-启动nameserver"><a href="#1-启动nameserver" class="headerlink" title="1.启动nameserver"></a>1.启动nameserver</h2><p>本地安装mq4.7.0版本（客户项目中引入的客户端是4.7）</p>
+<p>docker pull foxiswho/rocketmq:4.7.0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> docker run -d \</span><br><span class="line">--restart&#x3D;always \</span><br><span class="line">--name rmqnamesrv \</span><br><span class="line">-p 9876:9876 \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;namesrv&#x2F;logs:&#x2F;root&#x2F;logs \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;namesrv&#x2F;store:&#x2F;root&#x2F;store \</span><br><span class="line">-e &quot;MAX_POSSIBLE_HEAP&#x3D;100000000&quot; \</span><br><span class="line">foxiswho&#x2F;rocketmq:4.7.0 \</span><br><span class="line">sh mqnamesrv</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-启用broker"><a href="#2-启用broker" class="headerlink" title="2.启用broker"></a>2.启用broker</h2><p>先配置 /Users/kirito/dockerConfig/rocketMQ/conf/broker.conf   创建文件</p>
+<p>mkdir -p /Users/kirito/dockerConfig/rocketMQ/data/broker/logs  /Users/kirito/dockerConfig/rocketMQ/data/broker/store </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 所属集群名称，如果节点较多可以配置多个</span><br><span class="line">brokerClusterName &#x3D; DefaultCluster</span><br><span class="line">#broker名称，master和slave使用相同的名称，表明他们的主从关系</span><br><span class="line">brokerName &#x3D; broker-a</span><br><span class="line">#0表示Master，大于0表示不同的slave</span><br><span class="line">brokerId &#x3D; 0</span><br><span class="line">#表示几点做消息删除动作，默认是凌晨4点</span><br><span class="line">deleteWhen &#x3D; 04</span><br><span class="line">#在磁盘上保留消息的时长，单位是小时</span><br><span class="line">fileReservedTime &#x3D; 48</span><br><span class="line">#有三个值：SYNC_MASTER，ASYNC_MASTER，SLAVE；同步和异步表示Master和Slave之间同步数据的机制；</span><br><span class="line">brokerRole &#x3D; ASYNC_MASTER</span><br><span class="line">#刷盘策略，取值为：ASYNC_FLUSH，SYNC_FLUSH表示同步刷盘和异步刷盘；SYNC_FLUSH消息写入磁盘后才返回成功状态，ASYNC_FLUSH不需要；</span><br><span class="line">flushDiskType &#x3D; ASYNC_FLUSH</span><br><span class="line"># 设置broker节点所在服务器的ip地址</span><br><span class="line">brokerIP1 &#x3D; 172.18.21.156</span><br></pre></td></tr></table></figure>
+
+<p>接着启动broker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">docker run -d  \</span><br><span class="line">--restart&#x3D;always \</span><br><span class="line">--name rmqbroker \</span><br><span class="line">--link rmqnamesrv:namesrv \</span><br><span class="line">-p 10911:10911 \</span><br><span class="line">-p 10909:10909 \</span><br><span class="line">-v  &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;broker&#x2F;logs:&#x2F;root&#x2F;logs \</span><br><span class="line">-v  &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;broker&#x2F;store:&#x2F;root&#x2F;store \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;conf&#x2F;broker.conf:&#x2F;opt&#x2F;rocketmq-4.7.0&#x2F;conf&#x2F;broker.conf \</span><br><span class="line">-e &quot;NAMESRV_ADDR&#x3D;namesrv:9876&quot; \</span><br><span class="line">-e &quot;MAX_POSSIBLE_HEAP&#x3D;200000000&quot; \</span><br><span class="line">foxiswho&#x2F;rocketmq:4.7.0 \</span><br><span class="line">sh mqbroker -c &#x2F;opt&#x2F;rocketmq-4.7.0&#x2F;conf&#x2F;broker.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-启动console控制台"><a href="#3-启动console控制台" class="headerlink" title="3.启动console控制台"></a>3.启动console控制台</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name rmqconsole -p 8900:8080 \</span><br><span class="line"> -e &quot;JAVA_OPTS&#x3D;-Drocketmq.namesrv.addr&#x3D;172.18.21.156:9876\</span><br><span class="line"> -Dcom.rocketmq.sendMessageWithVIPChannel&#x3D;false&quot;\</span><br><span class="line"> -t styletang&#x2F;rocketmq-console-ng</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Spring-Boot-集成和Demo"><a href="#4-Spring-Boot-集成和Demo" class="headerlink" title="4.Spring Boot 集成和Demo"></a>4.Spring Boot 集成和Demo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.rocketmq&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;rocketmq-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.7.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-官网Demo-Test"><a href="#5-官网Demo-Test" class="headerlink" title="5.官网Demo  Test"></a>5.官网Demo  Test</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMQ</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span> <span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 实例化消息生产者Producer</span></span><br><span class="line">        DefaultMQProducer producer = <span class="keyword">new</span> DefaultMQProducer(<span class="string">"please_rename_unique_group_name"</span>);</span><br><span class="line">        <span class="comment">// 设置NameServer的地址</span></span><br><span class="line">        producer.setNamesrvAddr(<span class="string">"localhost:9876"</span>);</span><br><span class="line">        <span class="comment">// 启动Producer实例</span></span><br><span class="line">        producer.start();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 创建消息，并指定Topic，Tag和消息体</span></span><br><span class="line">            Message msg = <span class="keyword">new</span> Message(<span class="string">"TopicTest"</span>,</span><br><span class="line">                    <span class="string">"TagA"</span> ,</span><br><span class="line">                    (<span class="string">"Hello RocketMQ "</span> + i).getBytes(RemotingHelper.DEFAULT_CHARSET) <span class="comment">/* Message body */</span></span><br><span class="line">            );</span><br><span class="line">            <span class="comment">// 发送消息到一个Broker</span></span><br><span class="line">            SendResult sendResult = producer.send(msg);</span><br><span class="line">            <span class="comment">// 通过sendResult返回消息是否成功送达</span></span><br><span class="line">            System.out.printf(<span class="string">"%s%n"</span>, sendResult);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果不再发送消息，关闭Producer实例。</span></span><br><span class="line">        producer.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/18/RocketMQ/image-20220321174202142.png" alt="image-20220321174202142"></p>
+<p>rocket源码地址： <a href="https://github.com/apache/rocketmq" target="_blank" rel="noopener">https://github.com/apache/rocketmq</a></p>
+<h2 id="6-消息队列原理理解"><a href="#6-消息队列原理理解" class="headerlink" title="6.消息队列原理理解"></a>6.消息队列原理理解</h2><ul>
+<li><p>保证消息不丢失</p>
+<p>生产者 ←→broker ←→消费者</p>
+<p>消息丢失会发生在三者交互的过程中</p>
+<p>1.生产者到broker：</p>
+<p>​        消息发送成功或者失败要打印消息日志，务必要打印SendResult和key字段。send消息方法只要不抛异常，就代表发送成功。发送成功会有多个状态，在sendResult里定义。</p>
+<p>2.broker存储消息：</p>
+<p>​        单机情况下是消息刷盘后返回响应，集群多副本情况下，即发送至两个副本及以上的情况下再返回响应r`</p>
+<p>3.消费者消费就丢失</p>
+<p>​        需要在执行完真正的业务逻辑之后再返回响应给<code>Broker</code></p>
+</li>
+<li><p>消息重复</p>
+<p>因为网络传输等等故障，确认信息没有传送到消息队列，导致消息队列不知道自己已经消费过该消息了，再次将消息分发给其他的消费者。消费者保证消息幂等性就可以避免，例如利用唯一标识来确认是否消费过消息，新增客服消息时只要表中存在这个客服的唯一码就不再消费消息</p>
+</li>
+<li><p>消息重试</p>
+<p>消费异常设置失败多少次就返回成功并打印日志。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                logger.error(String.format(<span class="string">"Handle New Message Exception-currentThreadName=%s-[topic=%s, tags=%s, msgId=%s, brokerName=%s, queueId=%s, queueOffset=%s, storeTimestamp=%s, reconsumeTimes=%s, msgBody=%s]"</span>,</span><br><span class="line">                        Thread.currentThread().getName(), msg.getTopic(), msg.getTags(), msg.getMsgId(), msg.getBrokerName(), msg.getQueueId(), msg.getQueueOffset(),</span><br><span class="line">                        msg.getStoreTimestamp(), msg.getReconsumeTimes(), msgBody), e);</span><br><span class="line">                <span class="comment">// 消息重新消费3次</span></span><br><span class="line">                <span class="keyword">if</span> (msg.getReconsumeTimes() &gt;= Constants.MAX_RETRY_TIMES) &#123;</span><br><span class="line">                    <span class="keyword">return</span> ConsumeOrderlyStatus.SUCCESS;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ul>
+<p><strong>复制策略</strong></p>
+<p>复制策略是Broker的Master与Slave间的数据同步方式。分为同步复制与异步复制：</p>
+<ul>
+<li>同步复制：消息写入master后，master会等待slave同步数据成功后才向producer返回成功ACK</li>
+<li>异步复制：消息写入master后，master立即向producer返回成功ACK，无需等待slave同步数据成功</li>
+</ul>
+<blockquote>
+<p>异步复制策略会降低系统的写入延迟，RT变小，提高了系统的吞吐量</p>
+</blockquote>
+<p><strong>刷盘策略</strong></p>
+<p>PageCache高速页缓存：Linux系统自带的一块缓存区，是Linux对文件的缓存，用于加速对文件的读写。Linux会将一部分内存作为PageCache。</p>
+<p>同步刷盘：消息被写入PageCache后立即刷盘，只有当消息被持久化到磁盘后才会响应ACK。</p>
+<p>异步刷盘：消息在被写入PageCache后就会响应ACK，当PageCache里的消息积累到一定量后，由OS线程将PageCache里的消息刷入磁盘。注：如果RocketMQ服务挂了，PageCache里的消息并不会丢失，因为PageCache是属于Linux系统的缓冲区，只有当服务器突然断电才会导致消息丢失。</p>
+<p>异步刷盘+缓冲区：RocketMQ将一部分内存当做缓冲区，消息被写入内存缓冲区后就返回ACK，由后台程序将内存缓冲区里的消息刷入磁盘。注：在该模式下，RocketMQ服务宕机或服务器突然断电都会导致消息丢失。</p>
+<p>同步刷盘：最可靠，性能低<br>异步刷盘：较为可靠，性能较高<br>异步刷盘+缓冲区：不太可靠，性能最高</p>
+
+    </div>
+	 
+		<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+		</div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/19/%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/" rel="prev" title="行为参数化">
+      <i class="fa fa-chevron-left"></i> 行为参数化
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-启动nameserver"><span class="nav-number">1.</span> <span class="nav-text">1.启动nameserver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-启用broker"><span class="nav-number">2.</span> <span class="nav-text">2.启用broker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-启动console控制台"><span class="nav-number">3.</span> <span class="nav-text">3.启动console控制台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Spring-Boot-集成和Demo"><span class="nav-number">4.</span> <span class="nav-text">4.Spring Boot 集成和Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-官网Demo-Test"><span class="nav-number">5.</span> <span class="nav-text">5.官网Demo  Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-消息队列原理理解"><span class="nav-number">6.</span> <span class="nav-text">6.消息队列原理理解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Kiritoyang"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Kiritoyang</p>
+  <div class="site-description" itemprop="description">天道酬勤</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">晨阳</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">26k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">44 分钟</span>
+</div>
+
+<img src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png">
+<a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">蜀ICP备20003232号-1</a>
+
+  
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
+"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: '6xrgnc9Qo8ysnT8udpwUvNNA-gzGzoHsz',
+      appKey: '0c58TF7cln2qOSb6A2mN7zFd',
+      placeholder: "给点点说法(╯▽╰)",
+      avatar: 'monsterid',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: '' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+<script type="text/javascript" src="/js/love.js"></script>
+</html>

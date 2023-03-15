@@ -50,13 +50,13 @@
 <a id="more"></a>
 <p><strong>代理</strong><br>　　Proxy即代理，被广泛应用于计算机领域，主要分为正向代理与反向代理：</p>
 <ul>
-<li><strong>正向代理</strong>：<br>　　正向代理隐藏了真实的请求客户端。服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求，某些科学上网工具扮演的就是典型的正向代理角色。用浏览器访问国外网站是时被墙了，于是你可以在国外搭建一台代理服务器，也就是所谓的梯子，让代理帮我去请求国外的网站，代理把请求返回的相应结构再返回给我。<br>当多个客户端访问服务器时服务器不知道真正访问自己的客户端是那一台。正向代理中,proxy和client同属一个LAN,对server透明，翻墙就用到了正向代理。<strong>「正向代理」代理的对象是客户端</strong></li>
+<li><strong>正向代理</strong>：<br>　　正向代理隐藏了真实的请求客户端。服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求，某些科学上网工具扮演的就是典型的正向代理角色。用浏览器访问国外网站是时被墙了，于是你可以在国外搭建一台代理服务器，也就是所谓的梯子，让代理帮我去请求国外的网站，代理把请求返回的相应结构再返回给我。<br>　　当多个客户端访问服务器时服务器不知道真正访问自己的客户端是那一台。正向代理中,proxy和client同属一个LAN,对server透明，翻墙就用到了正向代理。<strong>「正向代理」代理的对象是客户端</strong></li>
 </ul>
 <p><img src="/2021/06/30/nginx/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86.png" alt></p>
 <ul>
 <li><p><strong>反向代理</strong><br>　　反向代理服务器位于用户与目标服务器之间，但是对于用户而言，反向代理服务器就相当于目标服务器，即用户直接访问反向代理服务器就可以获得目标服务器的资源。同时，用户不需要知道目标服务器的地址，也无须在用户端作任何设定。<strong>「反向代理」代理的对象是服务端</strong></p>
 <ul>
-<li>反向代理服务器作用<br>  1、保护和隐藏原始资源服务器<br>防火墙和反向代理的共同作用保护了原始资源服务器<br>  2、负载均衡<br>当反向代理服务器不止一个的时候，我们甚至可以把它们做成集群，当更多的用户访问资源服务器的时候，让不同的代理服务器去应答不同的用户，然后发送不同用户需要的资源。对于客户端而言它就像是原始服务器，并且客户端不需要进行任何特别的设置。客户端向反向代理的命名空间(name-space)中的内容发送普通请求，接着反向代理将判断向何处(原始服务器)转交请求，并将获得的内容返回给客户端，就像这些内容原本就是它自己的一样。</li>
+<li>反向代理服务器作用<br>  1、保护和隐藏原始资源服务器<br>　　    防火墙和反向代理的共同作用保护了原始资源服务器<br>  2、负载均衡<br>　　    当反向代理服务器不止一个的时候，我们甚至可以把它们做成集群，当更多的用户访问资源服务器的时候，让不同的代理服务器去应答不同的用户，然后发送不同用户需要的资源。对于客户端而言它就像是原始服务器，并且客户端不需要进行任何特别的设置。客户端向反向代理的命名空间(name-space)中的内容发送普通请求，接着反向代理将判断向何处(原始服务器)转交请求，并将获得的内容返回给客户端，就像这些内容原本就是它自己的一样。</li>
 </ul>
 </li>
 </ul>
@@ -243,7 +243,12 @@
   <entry>
     <title>行为参数化</title>
     <url>/2021/12/19/%E8%A1%8C%E4%B8%BA%E5%8F%82%E6%95%B0%E5%8C%96/</url>
-    <content><![CDATA[<p>阅读java8实战得出</p>
+    <content><![CDATA[<ul>
+<li><p>行为参数化，就是一个方法接受多个不同的行为作为参数，并在内部使用它们，完成不同行为的能力。</p>
+</li>
+<li><p>行为参数化可让代码更好地适应不断变化的要求，减轻未来的工作量</p>
+</li>
+</ul>
 <a id="more"></a>
 
 <p>它接受一个Apple的List，并可以对它参数化，以多种方式根据苹果生成一个String输出(有点儿像多个可定制的toString方法)。例如，你 可 以 告 诉 prettyPrintApple 方 法 ， 只 打 印 每 个 苹 果 的 重 量 。 此 外 ， 你 可 以 让 prettyPrintApple方法分别打印每个苹果，然后说明它是重的还是轻的。解决方案和我们 前面讨论的筛选的例子类似，为了帮你上手，我们提供了prettyPrintApple方法的一个粗略的框架:</p>
@@ -351,6 +356,75 @@
 ]]></content>
       <categories>
         <category>Vue</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>RocketMQ</title>
+    <url>/2022/03/18/RocketMQ/</url>
+    <content><![CDATA[<p><strong>RocketMQ</strong></p>
+<a id="more"></a>
+
+<h2 id="1-启动nameserver"><a href="#1-启动nameserver" class="headerlink" title="1.启动nameserver"></a>1.启动nameserver</h2><p>本地安装mq4.7.0版本（客户项目中引入的客户端是4.7）</p>
+<p>docker pull foxiswho/rocketmq:4.7.0</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> docker run -d \</span><br><span class="line">--restart&#x3D;always \</span><br><span class="line">--name rmqnamesrv \</span><br><span class="line">-p 9876:9876 \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;namesrv&#x2F;logs:&#x2F;root&#x2F;logs \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;namesrv&#x2F;store:&#x2F;root&#x2F;store \</span><br><span class="line">-e &quot;MAX_POSSIBLE_HEAP&#x3D;100000000&quot; \</span><br><span class="line">foxiswho&#x2F;rocketmq:4.7.0 \</span><br><span class="line">sh mqnamesrv</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-启用broker"><a href="#2-启用broker" class="headerlink" title="2.启用broker"></a>2.启用broker</h2><p>先配置 /Users/kirito/dockerConfig/rocketMQ/conf/broker.conf   创建文件</p>
+<p>mkdir -p /Users/kirito/dockerConfig/rocketMQ/data/broker/logs  /Users/kirito/dockerConfig/rocketMQ/data/broker/store </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 所属集群名称，如果节点较多可以配置多个</span><br><span class="line">brokerClusterName &#x3D; DefaultCluster</span><br><span class="line">#broker名称，master和slave使用相同的名称，表明他们的主从关系</span><br><span class="line">brokerName &#x3D; broker-a</span><br><span class="line">#0表示Master，大于0表示不同的slave</span><br><span class="line">brokerId &#x3D; 0</span><br><span class="line">#表示几点做消息删除动作，默认是凌晨4点</span><br><span class="line">deleteWhen &#x3D; 04</span><br><span class="line">#在磁盘上保留消息的时长，单位是小时</span><br><span class="line">fileReservedTime &#x3D; 48</span><br><span class="line">#有三个值：SYNC_MASTER，ASYNC_MASTER，SLAVE；同步和异步表示Master和Slave之间同步数据的机制；</span><br><span class="line">brokerRole &#x3D; ASYNC_MASTER</span><br><span class="line">#刷盘策略，取值为：ASYNC_FLUSH，SYNC_FLUSH表示同步刷盘和异步刷盘；SYNC_FLUSH消息写入磁盘后才返回成功状态，ASYNC_FLUSH不需要；</span><br><span class="line">flushDiskType &#x3D; ASYNC_FLUSH</span><br><span class="line"># 设置broker节点所在服务器的ip地址</span><br><span class="line">brokerIP1 &#x3D; 172.18.21.156</span><br></pre></td></tr></table></figure>
+
+<p>接着启动broker</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -d  \</span><br><span class="line">--restart&#x3D;always \</span><br><span class="line">--name rmqbroker \</span><br><span class="line">--link rmqnamesrv:namesrv \</span><br><span class="line">-p 10911:10911 \</span><br><span class="line">-p 10909:10909 \</span><br><span class="line">-v  &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;broker&#x2F;logs:&#x2F;root&#x2F;logs \</span><br><span class="line">-v  &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;data&#x2F;broker&#x2F;store:&#x2F;root&#x2F;store \</span><br><span class="line">-v &#x2F;Users&#x2F;kirito&#x2F;dockerConfig&#x2F;rocketMQ&#x2F;conf&#x2F;broker.conf:&#x2F;opt&#x2F;rocketmq-4.7.0&#x2F;conf&#x2F;broker.conf \</span><br><span class="line">-e &quot;NAMESRV_ADDR&#x3D;namesrv:9876&quot; \</span><br><span class="line">-e &quot;MAX_POSSIBLE_HEAP&#x3D;200000000&quot; \</span><br><span class="line">foxiswho&#x2F;rocketmq:4.7.0 \</span><br><span class="line">sh mqbroker -c &#x2F;opt&#x2F;rocketmq-4.7.0&#x2F;conf&#x2F;broker.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-启动console控制台"><a href="#3-启动console控制台" class="headerlink" title="3.启动console控制台"></a>3.启动console控制台</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -d --name rmqconsole -p 8900:8080 \</span><br><span class="line"> -e &quot;JAVA_OPTS&#x3D;-Drocketmq.namesrv.addr&#x3D;172.18.21.156:9876\</span><br><span class="line"> -Dcom.rocketmq.sendMessageWithVIPChannel&#x3D;false&quot;\</span><br><span class="line"> -t styletang&#x2F;rocketmq-console-ng</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Spring-Boot-集成和Demo"><a href="#4-Spring-Boot-集成和Demo" class="headerlink" title="4.Spring Boot 集成和Demo"></a>4.Spring Boot 集成和Demo</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.rocketmq&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;rocketmq-client&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;4.7.0&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-官网Demo-Test"><a href="#5-官网Demo-Test" class="headerlink" title="5.官网Demo  Test"></a>5.官网Demo  Test</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMQ</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span> <span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 实例化消息生产者Producer</span></span><br><span class="line">        DefaultMQProducer producer = <span class="keyword">new</span> DefaultMQProducer(<span class="string">"please_rename_unique_group_name"</span>);</span><br><span class="line">        <span class="comment">// 设置NameServer的地址</span></span><br><span class="line">        producer.setNamesrvAddr(<span class="string">"localhost:9876"</span>);</span><br><span class="line">        <span class="comment">// 启动Producer实例</span></span><br><span class="line">        producer.start();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 创建消息，并指定Topic，Tag和消息体</span></span><br><span class="line">            Message msg = <span class="keyword">new</span> Message(<span class="string">"TopicTest"</span>,</span><br><span class="line">                    <span class="string">"TagA"</span> ,</span><br><span class="line">                    (<span class="string">"Hello RocketMQ "</span> + i).getBytes(RemotingHelper.DEFAULT_CHARSET) <span class="comment">/* Message body */</span></span><br><span class="line">            );</span><br><span class="line">            <span class="comment">// 发送消息到一个Broker</span></span><br><span class="line">            SendResult sendResult = producer.send(msg);</span><br><span class="line">            <span class="comment">// 通过sendResult返回消息是否成功送达</span></span><br><span class="line">            System.out.printf(<span class="string">"%s%n"</span>, sendResult);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果不再发送消息，关闭Producer实例。</span></span><br><span class="line">        producer.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/03/18/RocketMQ/image-20220321174202142.png" alt="image-20220321174202142"></p>
+<p>rocket源码地址： <a href="https://github.com/apache/rocketmq" target="_blank" rel="noopener">https://github.com/apache/rocketmq</a></p>
+<h2 id="6-消息队列原理理解"><a href="#6-消息队列原理理解" class="headerlink" title="6.消息队列原理理解"></a>6.消息队列原理理解</h2><ul>
+<li><p>保证消息不丢失</p>
+<p>生产者 ←→broker ←→消费者</p>
+<p>消息丢失会发生在三者交互的过程中</p>
+<p>1.生产者到broker：</p>
+<p>​        消息发送成功或者失败要打印消息日志，务必要打印SendResult和key字段。send消息方法只要不抛异常，就代表发送成功。发送成功会有多个状态，在sendResult里定义。</p>
+<p>2.broker存储消息：</p>
+<p>​        单机情况下是消息刷盘后返回响应，集群多副本情况下，即发送至两个副本及以上的情况下再返回响应r`</p>
+<p>3.消费者消费就丢失</p>
+<p>​        需要在执行完真正的业务逻辑之后再返回响应给<code>Broker</code></p>
+</li>
+<li><p>消息重复</p>
+<p>因为网络传输等等故障，确认信息没有传送到消息队列，导致消息队列不知道自己已经消费过该消息了，再次将消息分发给其他的消费者。消费者保证消息幂等性就可以避免，例如利用唯一标识来确认是否消费过消息，新增客服消息时只要表中存在这个客服的唯一码就不再消费消息</p>
+</li>
+<li><p>消息重试</p>
+<p>消费异常设置失败多少次就返回成功并打印日志。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                logger.error(String.format(<span class="string">"Handle New Message Exception-currentThreadName=%s-[topic=%s, tags=%s, msgId=%s, brokerName=%s, queueId=%s, queueOffset=%s, storeTimestamp=%s, reconsumeTimes=%s, msgBody=%s]"</span>,</span><br><span class="line">                        Thread.currentThread().getName(), msg.getTopic(), msg.getTags(), msg.getMsgId(), msg.getBrokerName(), msg.getQueueId(), msg.getQueueOffset(),</span><br><span class="line">                        msg.getStoreTimestamp(), msg.getReconsumeTimes(), msgBody), e);</span><br><span class="line">                <span class="comment">// 消息重新消费3次</span></span><br><span class="line">                <span class="keyword">if</span> (msg.getReconsumeTimes() &gt;= Constants.MAX_RETRY_TIMES) &#123;</span><br><span class="line">                    <span class="keyword">return</span> ConsumeOrderlyStatus.SUCCESS;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ul>
+<p><strong>复制策略</strong></p>
+<p>复制策略是Broker的Master与Slave间的数据同步方式。分为同步复制与异步复制：</p>
+<ul>
+<li>同步复制：消息写入master后，master会等待slave同步数据成功后才向producer返回成功ACK</li>
+<li>异步复制：消息写入master后，master立即向producer返回成功ACK，无需等待slave同步数据成功</li>
+</ul>
+<blockquote>
+<p>异步复制策略会降低系统的写入延迟，RT变小，提高了系统的吞吐量</p>
+</blockquote>
+<p><strong>刷盘策略</strong></p>
+<p>PageCache高速页缓存：Linux系统自带的一块缓存区，是Linux对文件的缓存，用于加速对文件的读写。Linux会将一部分内存作为PageCache。</p>
+<p>同步刷盘：消息被写入PageCache后立即刷盘，只有当消息被持久化到磁盘后才会响应ACK。</p>
+<p>异步刷盘：消息在被写入PageCache后就会响应ACK，当PageCache里的消息积累到一定量后，由OS线程将PageCache里的消息刷入磁盘。注：如果RocketMQ服务挂了，PageCache里的消息并不会丢失，因为PageCache是属于Linux系统的缓冲区，只有当服务器突然断电才会导致消息丢失。</p>
+<p>异步刷盘+缓冲区：RocketMQ将一部分内存当做缓冲区，消息被写入内存缓冲区后就返回ACK，由后台程序将内存缓冲区里的消息刷入磁盘。注：在该模式下，RocketMQ服务宕机或服务器突然断电都会导致消息丢失。</p>
+<p>同步刷盘：最可靠，性能低<br>异步刷盘：较为可靠，性能较高<br>异步刷盘+缓冲区：不太可靠，性能最高</p>
+]]></content>
+      <categories>
+        <category>中间件</category>
       </categories>
   </entry>
 </search>
